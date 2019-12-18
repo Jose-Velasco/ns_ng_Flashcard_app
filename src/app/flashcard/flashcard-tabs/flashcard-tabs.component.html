@@ -1,0 +1,8 @@
+<TabView androidTabsPosition="bottom">
+    <StackLayout *tabItem="{title: 'Home', iconSource: 'res://menu_flashcards'}">
+        <page-router-outlet name="selectDeckMenu"></page-router-outlet>
+    </StackLayout>
+    <StackLayout *tabItem="{title: 'Create Deck', iconSource: 'res://menu_edit_flashcards'}">
+        <page-router-outlet name="deckSettings"></page-router-outlet>
+    </StackLayout>
+</TabView>

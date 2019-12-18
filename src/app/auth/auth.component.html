@@ -1,0 +1,28 @@
+<ns-action-bar isAuthScreen="true" title="Login"></ns-action-bar>
+<FlexboxLayout class="form auth-form">
+    <StackLayout class="input-field">
+        <Label fontSize="23" class="label" text="E-mail"></Label>
+        <TextField
+            class="input"
+            keyboardType="email"
+            autocorrect="false"></TextField>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <Label fontSize="23" class="label" text="Password"></Label>
+        <TextField
+            class="input"
+            hint="Min 6 characters"
+            keyboardType="email"
+            autocorrect="false"
+            autocapitalizationType="none"
+            [secure]="true"></TextField>
+    </StackLayout>
+    <Button
+        class="btn-flat"
+        text="Signup instead"
+        ></Button>
+    <Button
+        text="Login/signup"
+        class="btn btn-login"
+        (tap)="onLogin()"></Button>
+</FlexboxLayout>

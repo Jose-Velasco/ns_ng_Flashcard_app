@@ -1,0 +1,30 @@
+<!-- <FlexboxLayout>
+    <ScrollView orientation="horizontal">
+        <FlexboxLayout class="page">
+            <StackLayout>
+                <Label text="FlashCard 1"></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label text="FlashCard 1"></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label text="FlashCard 1"></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label text="FlashCard 1"></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label text="FlashCard 1"></Label>
+            </StackLayout>
+        </FlexboxLayout>
+    </ScrollView>
+</FlexboxLayout> -->
+
+<FlexboxLayout [ngStyle]="{'flex-direction': isListView ? 'column' : 'row'}">
+    <Button text="Flascard1" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
+    <Button text="Flascard2 Flascard2Flascard2Flascard2Flascard2 Flascard2 Flascard2" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
+    <Button text="Flascard3" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
+    <Button text="Flascard4" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
+    <Button text="Flascard5" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
+</FlexboxLayout>
+

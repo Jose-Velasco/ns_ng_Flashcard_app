@@ -1,0 +1,22 @@
+<ns-action-bar title="Edit Deck">
+    <ActionItem
+        android.position="actionBar"
+        ios.position="right"
+        pageTransition="slideLeft"
+        nsRouterLink="/crate-deck-type" >
+        <Label
+            text="&#xf0fe;"
+            android:class="fa p-10"
+            ios:class="fa p-5"
+            android:fontSize="30"
+            ></Label>
+    </ActionItem>
+</ns-action-bar>
+<FlexboxLayout class="flashcard-deck-settings-container">
+    <ScrollView>
+        <FlexboxLayout class="flashcard-deck-settings-wraper">
+            <ns-flashcard-select-deck isListView="true"></ns-flashcard-select-deck>
+        </FlexboxLayout>
+
+    </ScrollView>
+</FlexboxLayout>

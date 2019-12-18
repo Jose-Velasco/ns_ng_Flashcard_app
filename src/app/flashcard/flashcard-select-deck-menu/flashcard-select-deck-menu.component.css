@@ -1,0 +1,17 @@
+/* Add mobile styles for the component here.  */
+FlexboxLayout {
+    background-color: #12181B;
+}
+
+.page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flashcard-select-menu-font {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 35;
+    margin-bottom: 15;
+}

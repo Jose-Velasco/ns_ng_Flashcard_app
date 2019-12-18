@@ -1,0 +1,11 @@
+
+.flashcard-deck-settings-container {
+    background-color: var(--main-bg-color);
+    justify-content: center;
+    align-items: center;
+}
+/*
+.flashcard-deck-settings-wraper {
+    justify-content: center;
+    align-items: center;
+} */

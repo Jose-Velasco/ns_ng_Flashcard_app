@@ -1,0 +1,96 @@
+/*
+In NativeScript, the app.css file is where you place CSS rules that
+you would like to apply to your entire application. Check out
+http://docs.nativescript.org/ui/styling for a full list of the CSS
+selectors and properties you can use to style UI components.
+
+/*
+In many cases you may want to use the NativeScript core theme instead
+of writing your own CSS rules. For a full list of class names in the theme
+refer to http://docs.nativescript.org/ui/theme.
+*/
+@import '~nativescript-theme-core/css/core.light.css';
+
+.ns-root {
+    --main-bg-color: #12181B;
+    --secondary-text-color: #B2BECD;
+    --main-button-color: #09C372;
+}
+
+.drawer-container {
+    background: #2A2E35;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20;
+}
+
+.btn {
+    width: 80%;
+    font-size: 24;
+    height: 45;
+    background-color: var(--main-button-color);
+    color: #ffffff;
+}
+
+.btn-flat {
+    background-color: var(--main-button-color);
+    color: #ffffff;
+    font-size: 29;
+    font-weight: bold;
+    width: 80%;
+    height: 80;
+}
+
+.btn-logout {
+    background-color: #ff3860;
+    width: 80%;
+    font-size: 24;
+    height: 45;
+    color: #ffffff;
+}
+
+ActionBar {
+    color: white;
+}
+
+.action-bar-title {
+    font-weight: bold;
+    font-size: 30%;
+}
+
+.h1 {
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
+}
+
+.fa {
+    font-family: 'FontAwesome', 'Font-Awesome';
+}
+
+.form {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form .label {
+    font-weight: bold;
+    color: var(--secondary-text-color);
+}
+
+.form .input {
+    color: #ffffff;
+    border-bottom: solid;
+    border-bottom-width: 2;
+    border-bottom-color: #ffffff;
+    width: 100%;
+    font-size: 28;
+    placeholder-color: var(--secondary-text-color);
+}
+
+.form .input-field {
+    width: 80%;
+}
+
