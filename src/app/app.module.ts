@@ -13,6 +13,7 @@ import { FlashcardSelectDeckMenuComponent } from './flashcard/flashcard-select-d
 import { FlashcardDeckSettingsComponent } from './flashcard/flashcard-deck-settings/flashcard-deck-settings.component';
 import { CreateDeckTypeComponent } from './flashcard/create-deck-type/create-deck-type.component';
 import { AuthComponent } from './auth/auth.component';
+import { FlashcardEditDeckMenuComponent } from './flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -40,6 +41,7 @@ import { AuthComponent } from './auth/auth.component';
         FlashcardDeckSettingsComponent,
         CreateDeckTypeComponent,
         AuthComponent,
+        FlashcardEditDeckMenuComponent,
     ],
     providers: [],
     schemas: [

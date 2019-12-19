@@ -1,8 +1,11 @@
-<ns-action-bar title="Select a deck type"></ns-action-bar>
+<ns-action-bar [hasMenu]="false" title="Select a deck type"></ns-action-bar>
 <FlexboxLayout class="create-deck-type-container">
     <Label class="body deck-type-title" text="What kind of FlashCards would you like?"></Label>
     <FlexboxLayout class="create-deck-content-wraper">
-        <Button class="btn btn-type" text="Plain Text"></Button>
+        <Button
+            class="btn btn-type"
+            text="Plain Text"
+            nsRouterLink="/edit-deck-menu"></Button>
         <Label class="h2" text="OR"></Label>
         <Button class="btn btn-type" text="Draw"></Button>
     </FlexboxLayout>
