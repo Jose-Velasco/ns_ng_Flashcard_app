@@ -1,6 +1,6 @@
 <ns-action-bar [hasMenu]="false" title="Edit Deck Menu">
     <ActionItem android.position="popup"
-        ios.systemIcon="16"
+        ios.systemIcon="3"
         ios.position="right"
         text="Save">
     </ActionItem>
@@ -10,5 +10,9 @@
         text="Delete Deck">
     </ActionItem>
 </ns-action-bar>
-<Button text="flashcard-edit-deck-menu works!" class="btn btn-primary"></Button>
-<Label text="EDIT DECK MENU"></Label>
+<FlexboxLayout class="edit-deck-menu-container">
+    <TextField hint="Name the deck"></TextField>
+    <ScrollView orientation="horizontal">
+        <ns-flashcard-cards></ns-flashcard-cards>
+    </ScrollView>
+</FlexboxLayout>

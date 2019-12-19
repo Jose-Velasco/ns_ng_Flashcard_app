@@ -8,6 +8,7 @@ import { FlashcardDeckSettingsComponent } from "./flashcard/flashcard-deck-setti
 import { CreateDeckTypeComponent } from "./flashcard/create-deck-type/create-deck-type.component";
 import { AuthComponent } from "./auth/auth.component";
 import { FlashcardEditDeckMenuComponent } from "./flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component";
+import { FlashcardCardsComponent } from "./flashcard/flashcard-cards/flashcard-cards.component";
 
 const routes: Routes = [
     { path: "tabs", component: FlashcardTabsComponent, children: [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: "auth", component: AuthComponent },
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
     { path: "edit-deck-menu", component: FlashcardEditDeckMenuComponent },
+    { path: "cards", component: FlashcardCardsComponent },
     { path: "", redirectTo: "/tabs", pathMatch: "full" },
 
 

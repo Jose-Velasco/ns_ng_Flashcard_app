@@ -1,0 +1,30 @@
+.flashcard-cards-container {
+    flex-direction: row;
+}
+
+.flashcard-overview-card {
+    border: 1;
+    border-color: #b2becd;
+    border-radius: 20;
+    width: 350;
+    height: 75%;
+    margin: 10 10;
+    background-color: #ffffff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.description {
+   vertical-align: top;
+   font-size: 17;
+   text-wrap: true;
+}
+
+.question {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50;
+    color: #000000;
+    text-wrap: true;
+}

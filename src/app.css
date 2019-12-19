@@ -13,6 +13,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 .ns-root {
     --main-bg-color: #12181B;
+    --edit-deck-menu-bg-color: #404893;
     --secondary-text-color: #B2BECD;
     --main-button-color: #09C372;
 }
