@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     logout() {
-        this.router.navigate(['/auth', { clearHistory: true}]);
+        this.router.navigate(['/auth'], { clearHistory: true});
         this.drawer.toggleDrawerState();
     }
 

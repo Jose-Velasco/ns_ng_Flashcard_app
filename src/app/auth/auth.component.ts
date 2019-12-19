@@ -14,7 +14,7 @@ export class AuthComponent implements OnInit {
   }
 
   onLogin() {
-    this.router.navigate([''], {clearHistory: true});
+    this.router.navigate(['/tabs'], {clearHistory: true});
   }
 
 }
