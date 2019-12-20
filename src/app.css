@@ -95,3 +95,12 @@ ActionBar {
     width: 80%;
 }
 
+.input-basic {
+    color: #ffffff;
+    border-bottom: solid;
+    border-bottom-width: 3;
+    border-bottom-color: #ffffff;
+    width: 75%;
+    font-size: 28;
+    placeholder-color: var(--secondary-text-color);
+}

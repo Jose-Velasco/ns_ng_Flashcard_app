@@ -15,6 +15,7 @@ import { CreateDeckTypeComponent } from './flashcard/create-deck-type/create-dec
 import { AuthComponent } from './auth/auth.component';
 import { FlashcardEditDeckMenuComponent } from './flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component';
 import { FlashcardCardsComponent } from './flashcard/flashcard-cards/flashcard-cards.component';
+import { Label } from "tns-core-modules/ui/label/label";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -45,7 +46,7 @@ import { FlashcardCardsComponent } from './flashcard/flashcard-cards/flashcard-c
         FlashcardEditDeckMenuComponent,
         FlashcardCardsComponent,
     ],
-    providers: [],
+    providers: [Label],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
