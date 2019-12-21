@@ -16,6 +16,7 @@ import { AuthComponent } from './auth/auth.component';
 import { FlashcardEditDeckMenuComponent } from './flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component';
 import { FlashcardCardsComponent } from './flashcard/flashcard-cards/flashcard-cards.component';
 import { Label } from "tns-core-modules/ui/label/label";
+import { FlashcardEditDeckButtonsComponent } from './flashcard/flashcard-edit-deck-buttons/flashcard-edit-deck-buttons.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -45,6 +46,7 @@ import { Label } from "tns-core-modules/ui/label/label";
         AuthComponent,
         FlashcardEditDeckMenuComponent,
         FlashcardCardsComponent,
+        FlashcardEditDeckButtonsComponent,
     ],
     providers: [Label],
     schemas: [

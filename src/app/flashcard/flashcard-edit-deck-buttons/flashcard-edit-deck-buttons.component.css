@@ -1,0 +1,21 @@
+FlexboxLayout {
+    flex-direction: row;
+}
+
+.btn-select {
+    font-size: 25;
+    font-weight: bold;
+    background-color: #2F99BB;
+    color: #000000;
+    border-width: 1;
+    border-color: #f2994A;
+    border-radius: 5;
+}
+
+.btn-marign-left {
+    margin-left: 50;
+}
+
+.btn-marign-right {
+    margin-right: 50;
+}

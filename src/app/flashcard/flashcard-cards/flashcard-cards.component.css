@@ -14,6 +14,35 @@
     justify-content: flex-end;
 }
 
+.animate-card-front {
+    animation-name: flip-card;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-duration: 0.5s;
+    justify-content: center;
+    align-items: center;
+}
+
+.animate-card-back {
+    animation-name: flip-card;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-duration: 0.5s;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes flip-card {
+    from {
+        /* transform: rotate(0); */
+        transform: scaleX(0);
+    }
+    to {
+        /* transform: rotate(360); */
+        transform: scaleX(1);
+    }
+}
+
 .description {
    text-align: center;
    font-size: 18;
@@ -30,4 +59,27 @@
     font-size: 50;
     color: #000000;
     text-wrap: true;
+}
+
+.input-answer {
+    color: #000000;
+    border-bottom: solid;
+    border-bottom-width: 3;
+    border-bottom-color: #000000;
+    /* width: 75%; */
+    font-size: 50;
+    font-weight: bold;
+    text-align: center;
+    placeholder-color: var(--main-bg-color);
+}
+
+.input-instructions {
+    color: #000000;
+    border-bottom: solid;
+    border-bottom-width: 2;
+    border-bottom-color: var(--main-bg-color);
+    font-size: 18;
+    line-height: -2;
+    text-align: center;
+    placeholder-color: var(--main-bg-color);
 }

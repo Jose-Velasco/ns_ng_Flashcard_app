@@ -1,7 +1,27 @@
 <FlexboxLayout class="flashcard-cards-container">
-    <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card">
-        <Label class="description" text="DescriptionDescriptionDescription"></Label>
-        <Label id="question-label" (loaded)="onLabelLoad($event)" class="question" text="あ　　い　	　う　	　え　	　お"></Label>
+    <FlexboxLayout *ngFor="let card of staticFlashcardJson; let i = index;" (tap)="onFlip()" class="flashcard-overview-card" [ngClass]="{'animate-card-front': cardFront, 'animate-card-back': !cardFront}">
+        <Label *ngIf="cardFront && !isEditMode" class="description" text="{{ card.instuc }}"></Label>
+        <Label *ngIf="cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="{{ card.question }}"></Label>
+        <Label *ngIf="!cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="{{ card.answer }}"></Label>
+        <TextField *ngIf="cardFront && isEditMode" hint="instructions" class="input-instructions m-b-15"></TextField>
+        <TextView *ngIf="cardFront && isEditMode" hint="Enter Question" class="input-answer m-t-15" ></TextView>
+        <TextView *ngIf="!cardFront && isEditMode" hint="Enter Answer" class="input-answer" ></TextView>
+    </FlexboxLayout>
+    <!-- <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card" [ngClass]="{'animate-card-front': cardFront, 'animate-card-back': !cardFront}">
+        <Label *ngIf="cardFront && !isEditMode" class="description" text="DescriptionDescriptionDescription"></Label>
+        <Label *ngIf="cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="あい　うえお"></Label>
+        <Label *ngIf="!cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="Answer is...."></Label>
+        <TextField *ngIf="cardFront && isEditMode" hint="instructions" class="input-instructions m-b-15"></TextField>
+        <TextView *ngIf="cardFront && isEditMode" hint="Enter Question" class="input-answer m-t-15" ></TextView>
+        <TextView *ngIf="!cardFront && isEditMode" hint="Enter Answer" class="input-answer" ></TextView>
+    </FlexboxLayout>
+    <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card" [ngClass]="{'animate-card-front': cardFront, 'animate-card-back': !cardFront}">
+        <Label *ngIf="cardFront && !isEditMode" class="description" text="DescriptionDescriptionDescription"></Label>
+        <Label *ngIf="cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="あい　うえお"></Label>
+        <Label *ngIf="!cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="Answer is...."></Label>
+        <TextField *ngIf="cardFront && isEditMode" hint="instructions" class="input-instructions m-b-15"></TextField>
+        <TextView *ngIf="cardFront && isEditMode" hint="Enter Question" class="input-answer m-t-15" ></TextView>
+        <TextView *ngIf="!cardFront && isEditMode" hint="Enter Answer" class="input-answer" ></TextView>
     </FlexboxLayout>
     <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card">
         <Label class="description" text="Descriptionかたかな, カタカナかたかな, カタカかたかな, カタカナナDescription"></Label>
@@ -9,7 +29,7 @@
     </FlexboxLayout>
     <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card">
         <Label class="description" text="Description"></Label>
-        <Label class="question" (loaded)="onLabelLoad($event)" text="QuestionQuestion"></Label>
+        <Label class="question" text="QuestionQuestion"></Label>
     </FlexboxLayout>
     <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card">
         <Label class="description" text="Description"></Label>
@@ -22,5 +42,5 @@
     <FlexboxLayout (tap)="onFlip()" class="flashcard-overview-card">
         <Label class="description" text="Dn"></Label>
         <Label class="question" (loaded)="onLabelLoad($event)" text="漢字"></Label>
-    </FlexboxLayout>
+    </FlexboxLayout> -->
 </FlexboxLayout>
