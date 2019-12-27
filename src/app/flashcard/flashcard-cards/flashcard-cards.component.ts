@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import * as applicationModule from "tns-core-modules/application";
 import { isAndroid } from "tns-core-modules/platform";
 import { Label } from "tns-core-modules/ui/label"
 import { EventData } from 'tns-core-modules/ui/page/page';
+import { FlashcardService } from '../flashcard.service';
+import { Subscription } from 'rxjs';
+import { FlashcardDeck } from '../flashcardDeck.model';
 
 declare var android: any;
 
@@ -11,20 +14,20 @@ declare var android: any;
   templateUrl: './flashcard-cards.component.html',
   styleUrls: ['./flashcard-cards.component.css']
 })
-export class FlashcardCardsComponent implements OnInit {
+export class FlashcardCardsComponent implements OnInit, OnDestroy {
     cardFront = true;
     @Input() isEditMode = false;
-    staticFlashcardJson = [
-        {pk: 0, instuc: "transolate in English", question: "あ",answer: "A"},
-        {pk: 1, instuc: "transolate in Japanese", question: "A",answer: "あ"},
-        {pk: 2, instuc: "transolate in English", question: "ア",answer: "A"},
-        {pk: 3, instuc: "transolate in English", question: "漢字",answer: "Kanji "},
-        {pk: 4, instuc: "transolate漢字 in漢字 English", question: "漢字漢字漢字漢字漢漢漢漢字字字字",answer: "KanjiKanjiKanjiKanjiKanjiKanjiKanjiKanji"},
-    ]
+    flashcardDeck: FlashcardDeck;
+    flashcardDecksSub: Subscription;
 
-  constructor() { }
+  constructor(private flashcardService: FlashcardService) { }
 
   ngOnInit() {
+      this.flashcardDecksSub = this.flashcardService.flashcardsChanged
+        .subscribe((flashcardDecks: FlashcardDeck[]) => {
+            this.flashcardDeck = flashcardDecks[0];
+      });
+      this.flashcardDeck = this.flashcardService.getAFlashcardDeck(0);
   }
 
   onLabelLoad(args: EventData) {
@@ -66,5 +69,8 @@ export class FlashcardCardsComponent implements OnInit {
     //   clearTimeout(flipedTimeout);
   }
 
+  ngOnDestroy() {
+      this.flashcardDecksSub.unsubscribe();
+  }
 
 }
