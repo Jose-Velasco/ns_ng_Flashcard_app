@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { FlashcardDeck } from "./flashcardDeck.model";
+import { Card } from "./card.model";
 
 @Injectable ({providedIn: 'root'})
 export class FlashcardService {
@@ -28,6 +29,11 @@ export class FlashcardService {
     }
     getAFlashcardDeck(index: number) {
         return this.flashcardDecks[index];
+    }
+
+    updateFlashcardDecks(index: number, newFlashcardDeck: FlashcardDeck) {
+        this.flashcardDecks[index] = newFlashcardDeck;
+        this.flashcardsChanged.next(this.flashcardDecks.slice());
     }
 
 }

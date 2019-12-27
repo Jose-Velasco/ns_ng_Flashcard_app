@@ -16,6 +16,7 @@ refer to http://docs.nativescript.org/ui/theme.
     --edit-deck-menu-bg-color: #404893;
     --secondary-text-color: #B2BECD;
     --main-button-color: #09C372;
+    --main-highlight-color: #F96A1F;
 }
 
 .drawer-container {

@@ -13,7 +13,7 @@
 <FlexboxLayout class="edit-deck-menu-container">
     <TextField class="input-basic m-b-10" hint="Name the deck"></TextField>
     <ScrollView orientation="horizontal">
-        <ns-flashcard-cards></ns-flashcard-cards>
+        <ns-flashcard-cards [isEditMode]="true"></ns-flashcard-cards>
     </ScrollView>
     <ns-flashcard-edit-deck-buttons></ns-flashcard-edit-deck-buttons>
 </FlexboxLayout>

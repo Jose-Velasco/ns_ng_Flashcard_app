@@ -1,10 +1,66 @@
-<FlexboxLayout class="flashcard-cards-container">
-    <FlexboxLayout *ngFor="let card of flashcardDeck._cards; let i = index;" (tap)="onFlip()" class="flashcard-overview-card" [ngClass]="{'animate-card-front': cardFront, 'animate-card-back': !cardFront}">
-        <Label *ngIf="cardFront && !isEditMode" class="description" text="{{ card.instruction }}"></Label>
-        <Label *ngIf="cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="{{ card.question }}"></Label>
-        <Label *ngIf="!cardFront && !isEditMode" id="question-label" (loaded)="onLabelLoad($event)" class="question" text="{{ card.answer }}"></Label>
-        <TextField *ngIf="cardFront && isEditMode" hint="instructions" class="input-instructions m-b-15"></TextField>
-        <TextView *ngIf="cardFront && isEditMode" hint="Enter Question" class="input-answer m-t-15" ></TextView>
-        <TextView *ngIf="!cardFront && isEditMode" hint="Enter Answer" class="input-answer" ></TextView>
+<FlexboxLayout class="flashcard-cards-container" [formGroup]="cardForm">
+    <!-- *ngFor="let card of flashcardDeck._cards; let i = index;" -->
+    <FlexboxLayout
+        *ngFor="let card of cardsControl; let i = index;"
+        (tap)="onFlip()"
+        (longPress)="onSelectCard(i)"
+        class="flashcard-overview-card"
+        [ngClass]="{'animate-card-front': cardFront && cardFront != null, 'animate-card-back': !cardFront && cardFront != null}"
+        [ngStyle]="{'border-color': i === this.indexSelected ? '#F96A1F' : '#000000'}"
+
+
+        formArrayName="cards"
+
+        >
+
+        <Label
+            *ngIf="!cardFront && i != indexSelected"
+            class="description"
+            text="{{ flashcardDeck._cards[i].instruction }}"
+            >
+        </Label>
+        <Label
+            *ngIf="!cardFront && i != indexSelected"
+            id="question-label"
+            (loaded)="onLabelLoad($event)"
+            class="question"
+            text="{{ flashcardDeck._cards[i].question }}"
+            >
+        </Label>
+        <Label
+            *ngIf="cardFront && i != indexSelected"
+            id="question-label"
+            (loaded)="onLabelLoad($event)"
+            class="question"
+            text="{{ flashcardDeck._cards[i].answer }}"
+            >
+        </Label>
+
+        <!-- edit form -->
+
+        <FlexboxLayout [ngClass]="{'card-form': isEditMode && i === indexSelected}" *ngIf="isEditMode" [formGroupName]="i">
+            <TextField
+                *ngIf="!cardFront && isEditMode && i === indexSelected"
+                hint="instructions"
+                class="input-instructions m-b-15"
+                formControlName="instruction"
+                >
+            </TextField>
+            <TextView
+                *ngIf="!cardFront && isEditMode && i === indexSelected"
+                hint="Enter Question"
+                class="input-answer m-t-15"
+                formControlName="question"
+                >
+            </TextView>
+            <TextView
+                *ngIf="cardFront && isEditMode && i === indexSelected"
+                hint="Enter Answer"
+                class="input-answer"
+                formControlName="answer"
+
+                >
+            </TextView>
+        </FlexboxLayout>
     </FlexboxLayout>
 </FlexboxLayout>
