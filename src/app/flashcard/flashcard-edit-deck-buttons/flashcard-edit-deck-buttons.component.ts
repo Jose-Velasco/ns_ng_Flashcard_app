@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ns-flashcard-edit-deck-buttons',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./flashcard-edit-deck-buttons.component.css']
 })
 export class FlashcardEditDeckButtonsComponent implements OnInit {
+    @Input() isEditModeButtons = false;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

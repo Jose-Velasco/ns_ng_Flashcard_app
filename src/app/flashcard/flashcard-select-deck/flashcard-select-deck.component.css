@@ -23,9 +23,9 @@
 }
 
 .flashcard-list-overview {
-    border: 1;
-    border-color: #ffffff;
-    background-color: #B8DD4F;
+    border-width: 2;
+    border-color: #000000;
+    background-color: #ffffff;
     border-radius: 10;
     color:rgb(0, 0, 0);
     width: 85%;

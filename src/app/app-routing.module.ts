@@ -9,6 +9,7 @@ import { CreateDeckTypeComponent } from "./flashcard/create-deck-type/create-dec
 import { AuthComponent } from "./auth/auth.component";
 import { FlashcardEditDeckMenuComponent } from "./flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component";
 import { FlashcardCardsComponent } from "./flashcard/flashcard-cards/flashcard-cards.component";
+import { FlashcardDeckViewerComponent } from "./flashcard/flashcard-deck-viewer/flashcard-deck-viewer.component";
 
 const routes: Routes = [
     { path: "tabs", component: FlashcardTabsComponent, children: [
@@ -16,8 +17,9 @@ const routes: Routes = [
         { path: "deck-Settings", component: FlashcardDeckSettingsComponent, outlet: 'deckSettings' },
     ] },
     { path: "auth", component: AuthComponent },
+    { path: "view-flashcards/:id", component: FlashcardDeckViewerComponent },
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
-    { path: "edit-deck-menu", component: FlashcardEditDeckMenuComponent },
+    { path: "edit-deck-menu/:id", component: FlashcardEditDeckMenuComponent },
     { path: "cards", component: FlashcardCardsComponent },
     { path: "", redirectTo: "/tabs", pathMatch: "full" },
 

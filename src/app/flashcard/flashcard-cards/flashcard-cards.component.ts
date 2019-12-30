@@ -6,7 +6,7 @@ import { EventData } from 'tns-core-modules/ui/page/page';
 import { FlashcardService } from '../flashcard.service';
 import { Subscription } from 'rxjs';
 import { FlashcardDeck } from '../flashcardDeck.model';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { TextView } from 'tns-core-modules/ui/text-view';
 
@@ -18,6 +18,7 @@ declare var android: any;
   styleUrls: ['./flashcard-cards.component.css']
 })
 export class FlashcardCardsComponent implements OnInit, OnDestroy {
+    @Input() flashcardDeckIndexSelected: number;
     cardFront = null;
     indexSelected: number;
     @Input() isEditMode = false;
@@ -37,9 +38,9 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
   ngOnInit() {
       this.flashcardDecksSub = this.flashcardService.flashcardsChanged
         .subscribe((flashcardDecks: FlashcardDeck[]) => {
-            this.flashcardDeck = flashcardDecks[0];
+            this.flashcardDeck = flashcardDecks[this.flashcardDeckIndexSelected];
       });
-      this.flashcardDeck = this.flashcardService.getAFlashcardDeck(0);
+      this.flashcardDeck = this.flashcardService.getAFlashcardDeck(this.flashcardDeckIndexSelected);
 
       this.initCardForm();
   }

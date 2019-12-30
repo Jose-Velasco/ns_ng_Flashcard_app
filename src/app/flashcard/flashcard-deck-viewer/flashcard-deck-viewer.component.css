@@ -1,0 +1,6 @@
+.flashcard-deck-view-container {
+    background-color: var(--main-bg-color);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

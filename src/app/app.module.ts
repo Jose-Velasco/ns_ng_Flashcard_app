@@ -19,6 +19,7 @@ import { Label } from "tns-core-modules/ui/label/label";
 import { FlashcardEditDeckButtonsComponent } from './flashcard/flashcard-edit-deck-buttons/flashcard-edit-deck-buttons.component';
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
+import { FlashcardDeckViewerComponent } from './flashcard/flashcard-deck-viewer/flashcard-deck-viewer.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -51,6 +52,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         FlashcardEditDeckMenuComponent,
         FlashcardCardsComponent,
         FlashcardEditDeckButtonsComponent,
+        FlashcardDeckViewerComponent,
     ],
     providers: [Label],
     schemas: [

@@ -6,7 +6,7 @@
         (longPress)="onSelectCard(i)"
         class="flashcard-overview-card"
         [ngClass]="{'animate-card-front': cardFront && cardFront != null, 'animate-card-back': !cardFront && cardFront != null}"
-        [ngStyle]="{'border-color': i === this.indexSelected ? '#F96A1F' : '#000000'}"
+        [ngStyle]="{'border-color': i === this.indexSelected ? '#F96A1F' : '#000000', 'height': isEditMode ? '75%' : '85%'}"
 
 
         formArrayName="cards"
