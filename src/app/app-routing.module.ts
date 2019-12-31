@@ -17,10 +17,10 @@ const routes: Routes = [
         { path: "deck-Settings", component: FlashcardDeckSettingsComponent, outlet: 'deckSettings' },
     ] },
     { path: "auth", component: AuthComponent },
+    { path: "cards", component: FlashcardCardsComponent },
     { path: "view-flashcards/:id", component: FlashcardDeckViewerComponent },
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
     { path: "edit-deck-menu/:id", component: FlashcardEditDeckMenuComponent },
-    { path: "cards", component: FlashcardCardsComponent },
     { path: "", redirectTo: "/tabs", pathMatch: "full" },
 
 

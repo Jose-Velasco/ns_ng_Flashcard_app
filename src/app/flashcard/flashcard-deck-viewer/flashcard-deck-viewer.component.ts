@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FlashcardService } from '../flashcard.service';
 import { PageRoute } from 'nativescript-angular/router';
 
 @Component({
@@ -11,7 +10,6 @@ export class FlashcardDeckViewerComponent implements OnInit {
     dynamicParamSelectedDeckIndex: number;
 
     constructor(
-        private flashcardService: FlashcardService,
         private pageRoute: PageRoute) { }
 
     ngOnInit() {

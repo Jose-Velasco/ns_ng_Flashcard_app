@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { PageRoute } from 'nativescript-angular/router';
+import { EventData } from 'tns-core-modules/ui/page/page';
 
 @Component({
   selector: 'ns-flashcard-edit-deck-menu',
@@ -8,6 +9,7 @@ import { PageRoute } from 'nativescript-angular/router';
 })
 export class FlashcardEditDeckMenuComponent implements OnInit {
     dynamicParamSelectedDeckIndex: number;
+    private onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private pageRoute: PageRoute) { }
 
@@ -17,6 +19,10 @@ export class FlashcardEditDeckMenuComponent implements OnInit {
               this.dynamicParamSelectedDeckIndex = parseInt(paramMap.get('id'));
           })
       })
+  }
+
+  onSaveFlashcardDeck(eventData: EventData) {
+      this.onsaveFlashcardDeckEvent.emit(true);
   }
 
 }

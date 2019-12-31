@@ -1,33 +1,7 @@
-<!-- <FlexboxLayout>
-    <ScrollView orientation="horizontal">
-        <FlexboxLayout class="page">
-            <StackLayout>
-                <Label text="FlashCard 1"></Label>
-            </StackLayout>
-            <StackLayout>
-                <Label text="FlashCard 1"></Label>
-            </StackLayout>
-            <StackLayout>
-                <Label text="FlashCard 1"></Label>
-            </StackLayout>
-            <StackLayout>
-                <Label text="FlashCard 1"></Label>
-            </StackLayout>
-            <StackLayout>
-                <Label text="FlashCard 1"></Label>
-            </StackLayout>
-        </FlexboxLayout>
-    </ScrollView>
-</FlexboxLayout> -->
-
 <FlexboxLayout [ngStyle]="{'flex-direction': isListView ? 'column' : 'row'}" *ngFor="let deck of flashcardDecks; let i = index;">
-    <!-- <Button text="Flascard1" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
-    <Button text="555Flascard2 Flascard2Flascard2Flascard2Flascard2 Flascard2 Flascard223333333" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
-    <Button text="Flascard3" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button>
-    <Button text="Flascard4" [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}" class="flashcard-overview-font"></Button> -->
     <Button
         text="{{ deck.title }}"
-        [ngClass]="{'flashcard-overview':  !isListView, 'flashcard-list-overview': isListView}"
+        [ngClass]="{'flashcard-overview': !isListView, 'flashcard-list-overview': isListView}"
         class="flashcard-overview-font"
         (tap)="onFlashcardSelected(i)"
         >

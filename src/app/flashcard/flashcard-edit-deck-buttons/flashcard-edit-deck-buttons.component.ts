@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FlashcardService } from '../flashcard.service';
 
 @Component({
   selector: 'ns-flashcard-edit-deck-buttons',
@@ -7,10 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FlashcardEditDeckButtonsComponent implements OnInit {
     @Input() isEditModeButtons = false;
+    @Input() IndexDeckSelected: number;
 
-    constructor() { }
+    constructor(private flashcardService: FlashcardService) { }
 
     ngOnInit() {
+    }
+
+    onShuffleDeck() {
+        console.log(this.flashcardService.getAFlashcardDeck(this.IndexDeckSelected));
     }
 
 }

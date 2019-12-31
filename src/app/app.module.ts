@@ -4,8 +4,6 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
 import { FlashcardSelectDeckComponent } from './flashcard/flashcard-select-deck/flashcard-select-deck.component';
 import { ActionBarComponent } from './shared/ui/action-bar/action-bar.component';
 import { FlashcardTabsComponent } from './flashcard/flashcard-tabs/flashcard-tabs.component';
@@ -40,8 +38,6 @@ import { FlashcardDeckViewerComponent } from './flashcard/flashcard-deck-viewer/
     ],
     declarations: [
         AppComponent,
-        ItemsComponent,
-        ItemDetailComponent,
         FlashcardSelectDeckComponent,
         ActionBarComponent,
         FlashcardTabsComponent,

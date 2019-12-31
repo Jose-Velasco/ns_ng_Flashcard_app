@@ -2,10 +2,10 @@
 <FlexboxLayout class="flashcard-deck-view-container">
     <FlexboxLayout class="flashcard-deck-contianer">
         <ScrollView orientation="horizontal">
-            <ns-flashcard-cards [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="false"></ns-flashcard-cards>
+            <ns-flashcard-cards [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex"></ns-flashcard-cards>
         </ScrollView>
     </FlexboxLayout>
     <FlexboxLayout class="flashcard-button-wrapper">
-        <ns-flashcard-edit-deck-buttons></ns-flashcard-edit-deck-buttons>
+        <ns-flashcard-edit-deck-buttons [IndexDeckSelected]="dynamicParamSelectedDeckIndex"></ns-flashcard-edit-deck-buttons>
     </FlexboxLayout>
 </FlexboxLayout>

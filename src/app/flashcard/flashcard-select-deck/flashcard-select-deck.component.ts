@@ -20,12 +20,10 @@ export class FlashcardSelectDeckComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.flashcardDecks = this.flashcardService.getFlashcardDecks();
-    this.flashcardDecksSub = this.flashcardService.flashcardsChanged
+    this.flashcardDecksSub = this.flashcardService._flashcardsChanged
     .subscribe((flashcardsChanged: FlashcardDeck[]) => {
         this.flashcardDecks = flashcardsChanged;
-
     });
-
   }
 
   onFlashcardSelected(index: number) {

@@ -2,7 +2,8 @@
     <ActionItem android.position="popup"
         ios.systemIcon="3"
         ios.position="right"
-        text="Save">
+        text="Save"
+        (tap)="onSaveFlashcardDeck($event)">
     </ActionItem>
     <ActionItem android.position="popup"
         ios.systemIcon="16"
@@ -13,7 +14,7 @@
 <FlexboxLayout class="edit-deck-menu-container">
     <TextField class="input-basic m-b-10" hint="Name the deck"></TextField>
     <ScrollView orientation="horizontal">
-        <ns-flashcard-cards [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
+        <ns-flashcard-cards [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
     </ScrollView>
-    <ns-flashcard-edit-deck-buttons [isEditModeButtons]="true"></ns-flashcard-edit-deck-buttons>
+    <ns-flashcard-edit-deck-buttons [IndexDeckSelected]="dynamicParamSelectedDeckIndex" [isEditModeButtons]="true"></ns-flashcard-edit-deck-buttons>
 </FlexboxLayout>
