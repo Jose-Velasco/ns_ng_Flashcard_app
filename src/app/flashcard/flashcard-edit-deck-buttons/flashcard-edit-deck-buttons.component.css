@@ -23,6 +23,7 @@ FlexboxLayout {
 
 .btn-add:pressed {
     transform: scale(0.97, 0.97);
+    background-color: rgb(42, 147, 182);
 }
 
 .btn-delete {
@@ -37,6 +38,7 @@ FlexboxLayout {
 
 .btn-delete:pressed {
     transform: scale(0.95, 0.95);
+    background-color: rgb(40, 145, 180);
 }
 
 /* .btn-marign-left {

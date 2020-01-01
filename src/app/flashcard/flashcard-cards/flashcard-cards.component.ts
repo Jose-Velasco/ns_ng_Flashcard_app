@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter } from '@angular/core';
 import * as applicationModule from "tns-core-modules/application";
 import { isAndroid } from "tns-core-modules/platform";
 import { Label } from "tns-core-modules/ui/label"
@@ -7,8 +7,6 @@ import { FlashcardService } from '../flashcard.service';
 import { Subscription } from 'rxjs';
 import { FlashcardDeck } from '../flashcardDeck.model';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { TextField } from 'tns-core-modules/ui/text-field';
-import { TextView } from 'tns-core-modules/ui/text-view';
 import { EditFlashcardService } from '../edit-flashcard.service';
 
 declare var android: any;
@@ -23,6 +21,9 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     @Input() onAddCardEvent: EventEmitter<boolean>; // delte later not being used??
     saveFlashcardDeckSub: Subscription;
     @Input() flashcardDeckIndexSelected: number;
+    // used to get textfield value form parent component
+    // to be used to set current title of deck fomr control
+    @Input() currentFlashcardDeckTitle: string;
     cardFront = null;
     indexSelected: number;
     isCardSelected: boolean;
@@ -32,9 +33,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     editFlashcardActionStatusSerSub: Subscription;
     editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
     cardForm: FormGroup;
-    // @ViewChild('instructionsEl', {static: false}) instructionsEl: ElementRef<TextField>;
-    // @ViewChild('questionEl', {static: false}) questionEl: ElementRef<TextView>;
-    // @ViewChild('answerEl', {static: false}) answerEl: ElementRef<TextView>;
 
 
     get cardsControl() {
@@ -85,7 +83,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         const lbl = <Label>args.object;
         lbl.android.setGravity(17);
       }
-
   }
 
   get android() {
@@ -103,7 +100,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
 
   onSelectCard(index: number) {
     if (this.isEditMode) {
-        // const selectedCardControl = (<FormArray>this.cardForm.get('cards'));
         // used to fix bug when a card is pressed for the first time the card was
         // not seleceted but after the first time it would work
         if (this.indexSelected != null) {
@@ -113,24 +109,9 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             this.isCardSelected = true;
             this.indexSelected = index;
         }
-
         this.editFlashcardService.onIsCardSelected(this.isCardSelected);
         this.isCardSelected = null;
-
-        // this.flashcardDeck._cards[index].instruction = selectedCardControl.at(index).get('instruction').value;
-        // this.flashcardDeck._cards[index].question = selectedCardControl.at(index).get('question').value;
-        // this.flashcardDeck._cards[index].answer = selectedCardControl.at(index).get('answer').value;
-
-        // this.cardForm['card'].patchValue({
-        //     instruction: 'test',
-        //     question: 'Walrus',
-        //     answer: 'agian'
-        // });
-
-
-
     }
-
   }
 
   onAddCard() {
@@ -151,12 +132,16 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         this.editFlashcardService.onIsCardSelected(this.isCardSelected);
         this.isCardSelected = null;
     }
-
   }
 
   private initCardForm() {
       // used to test teh static data
-      let testtitle = "this was chanegd for the staits ts file";
+      // if the flashcard deck has a title then use it
+      // if it does not then just keep on using an empty string
+      // (this might hav to be test  id null value breaks something)???
+      if (this.flashcardDeck.title != "") {
+        this.currentFlashcardDeckTitle = this.flashcardDeck.title;
+      }
       let flashcardCards = new FormArray([]);
       //add if to make sure there is cards and not empty
       for (let card of this.flashcardDeck._cards) {
@@ -168,21 +153,20 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       }
 
       this.cardForm = new FormGroup({
-          title: new FormControl(testtitle, Validators.required),
+          title: new FormControl(this.currentFlashcardDeckTitle, Validators.required),
           _cards: flashcardCards
       });
-
   }
 
   saveFlashcardForm() {
       // need to find a way to save the data maybe moove ^^^^^ up there down here somehow
       // bind the data from parent textfield componet and pass it as the title: nw form controler
+      this.cardForm.value.title = this.currentFlashcardDeckTitle;
       if (this.isEditMode) {
         this.flashcardService.updateFlashcardDecks(this.flashcardDeckIndexSelected, this.cardForm.value);
         console.log(this.cardForm.value);
       }
   }
-
 
   ngOnDestroy() {
     this.flashcardDecksSub.unsubscribe();
@@ -190,7 +174,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         this.saveFlashcardDeckSub.unsubscribe();
         this.editFlashcardActionStatusSerSub.unsubscribe();
     }
-
   }
 
 }

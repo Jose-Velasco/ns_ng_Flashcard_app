@@ -12,9 +12,9 @@
     </ActionItem>
 </ns-action-bar>
 <FlexboxLayout class="edit-deck-menu-container">
-    <TextField class="input-basic m-b-10" hint="Name the deck"></TextField>
+    <TextField class="input-basic m-b-10" [(ngModel)]="TitleOfDeck" hint="Name the deck"></TextField>
     <ScrollView orientation="horizontal">
-        <ns-flashcard-cards [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
+        <ns-flashcard-cards [currentFlashcardDeckTitle]="TitleOfDeck" [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
     </ScrollView>
     <ns-flashcard-edit-deck-buttons [IndexDeckSelected]="dynamicParamSelectedDeckIndex" [isEditModeButtons]="true"></ns-flashcard-edit-deck-buttons>
 </FlexboxLayout>
