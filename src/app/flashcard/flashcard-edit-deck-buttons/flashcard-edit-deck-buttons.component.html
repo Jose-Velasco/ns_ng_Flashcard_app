@@ -5,7 +5,12 @@
         class="btn-select btn-marign-right"
         text="Select">
     </Button>
-    <Button *ngIf="isEditModeButtons" class="fa btn-select btn-marign-left" text="&#xf067;"></Button>
+    <Button
+        *ngIf="isEditModeButtons"
+        class="fa btn-select btn-marign-left"
+        text="&#xf067;"
+        (tap)="onAddCard()">
+    </Button>
     <Button
         *ngIf="!isEditModeButtons"
         [ngStyle]="{'font-size': '35'}"]

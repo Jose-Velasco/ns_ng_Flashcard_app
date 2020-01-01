@@ -9,9 +9,10 @@ import { EventData } from 'tns-core-modules/ui/page/page';
 })
 export class FlashcardEditDeckMenuComponent implements OnInit {
     dynamicParamSelectedDeckIndex: number;
-    private onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
+    onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private pageRoute: PageRoute) { }
+  constructor(
+      private pageRoute: PageRoute) { }
 
   ngOnInit() {
       this.pageRoute.activatedRoute.subscribe(activatedRoute => {

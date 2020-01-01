@@ -9,6 +9,7 @@ import { FlashcardDeck } from '../flashcardDeck.model';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { TextView } from 'tns-core-modules/ui/text-view';
+import { EditFlashcardService } from '../edit-flashcard.service';
 
 declare var android: any;
 
@@ -19,6 +20,7 @@ declare var android: any;
 })
 export class FlashcardCardsComponent implements OnInit, OnDestroy {
     @Input() onsaveFlashcardDeckEvent: EventEmitter<boolean>;
+    @Input() onAddCardEvent: EventEmitter<boolean>; // delte later not being used??
     saveFlashcardDeckSub: Subscription;
     @Input() flashcardDeckIndexSelected: number;
     cardFront = null;
@@ -26,6 +28,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     @Input() isEditMode = false;
     flashcardDeck: FlashcardDeck;
     flashcardDecksSub: Subscription;
+    editFlashcardSerSub: Subscription;
     cardForm: FormGroup;
     // @ViewChild('instructionsEl', {static: false}) instructionsEl: ElementRef<TextField>;
     // @ViewChild('questionEl', {static: false}) questionEl: ElementRef<TextView>;
@@ -40,12 +43,20 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         }
     }
 
-  constructor(private flashcardService: FlashcardService) { }
+  constructor(
+      private flashcardService: FlashcardService,
+      private editFlashcardService: EditFlashcardService) { }
 
     ngOnInit() {
         if (this.onsaveFlashcardDeckEvent) {
             this.saveFlashcardDeckSub = this.onsaveFlashcardDeckEvent.subscribe(data => {
                 this.saveFlashcardForm();
+            });
+        }
+
+        if (this.isEditMode) {
+            this.editFlashcardSerSub = this.editFlashcardService.cardAddedToDEckObserv.subscribe(onAddCardButton => {
+                this.onAddCard();
             });
         }
         this.flashcardDecksSub = this.flashcardService._flashcardsChanged
@@ -104,6 +115,16 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
 
   }
 
+  onAddCard() {
+      (<FormArray>this.cardForm.get('_cards')).push(
+          new FormGroup({
+            instruction: new FormControl(null, {updateOn: "change"}),
+            question: new FormControl(null, {updateOn: "change"}),
+            answer: new FormControl(null, { updateOn: "change"})
+          })
+      );
+  }
+
   private initCardForm() {
       // used to test teh static data
       let testtitle = "this was chanegd for the staits ts file";
@@ -138,6 +159,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     this.flashcardDecksSub.unsubscribe();
     if(this.isEditMode) {
         this.saveFlashcardDeckSub.unsubscribe();
+        this.editFlashcardSerSub.unsubscribe();
     }
 
   }
