@@ -1,17 +1,24 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { Card } from "./card.model";
 
 @Injectable({providedIn: 'root'})
 export class EditFlashcardService {
-    // might need to delte this i think ifixed bug with submmitng the form and  saving the data
-    private cardAddedToDeck = new Subject();
+    private actionStatusToDeck = new Subject<string>();
+    private aCardWasSelected = new Subject<boolean>();
 
-    get cardAddedToDEckObserv() {
-        return this.cardAddedToDeck.asObservable();
+    get actionStatusToDeckObserv() {
+        return this.actionStatusToDeck.asObservable();
     }
 
-    addCard() {
-        this.cardAddedToDeck.next();
+    get aCardWasSelectedObserv() {
+        return this.aCardWasSelected.asObservable();
+    }
+
+    updateDeckAction(addAction: string) {
+        this.actionStatusToDeck.next(addAction);
+    }
+
+    onIsCardSelected(isCardSelected: boolean) {
+        this.aCardWasSelected.next(isCardSelected);
     }
 }

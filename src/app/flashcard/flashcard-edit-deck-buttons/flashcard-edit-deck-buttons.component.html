@@ -1,15 +1,15 @@
 <FlexboxLayout>
     <Button
-        *ngIf="isEditModeButtons"
-        (tap)="onShuffleDeck()"
-        class="btn-select btn-marign-right"
-        text="Select">
+        *ngIf="isEditModeButtons && isCardSelected"
+        (tap)="onDeleteACard('delete')"
+        class="fa btn-delete"
+        text="&#xf068;">
     </Button>
     <Button
-        *ngIf="isEditModeButtons"
-        class="fa btn-select btn-marign-left"
+        *ngIf="isEditModeButtons && !isCardSelected"
+        class="fa btn-add"
         text="&#xf067;"
-        (tap)="onAddCard()">
+        (tap)="onAddCard('add')">
     </Button>
     <Button
         *ngIf="!isEditModeButtons"

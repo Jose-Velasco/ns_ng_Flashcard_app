@@ -25,10 +25,12 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     @Input() flashcardDeckIndexSelected: number;
     cardFront = null;
     indexSelected: number;
+    isCardSelected: boolean;
     @Input() isEditMode = false;
     flashcardDeck: FlashcardDeck;
     flashcardDecksSub: Subscription;
-    editFlashcardSerSub: Subscription;
+    editFlashcardActionStatusSerSub: Subscription;
+    editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
     cardForm: FormGroup;
     // @ViewChild('instructionsEl', {static: false}) instructionsEl: ElementRef<TextField>;
     // @ViewChild('questionEl', {static: false}) questionEl: ElementRef<TextView>;
@@ -48,16 +50,24 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       private editFlashcardService: EditFlashcardService) { }
 
     ngOnInit() {
+        // used to when save buttton is clicked saves the current deck
         if (this.onsaveFlashcardDeckEvent) {
             this.saveFlashcardDeckSub = this.onsaveFlashcardDeckEvent.subscribe(data => {
                 this.saveFlashcardForm();
             });
         }
 
+        // used to determin whether to add a card or to delete a card seleceted
         if (this.isEditMode) {
-            this.editFlashcardSerSub = this.editFlashcardService.cardAddedToDEckObserv.subscribe(onAddCardButton => {
-                this.onAddCard();
+            this.editFlashcardActionStatusSerSub = this.editFlashcardService.actionStatusToDeckObserv
+                .subscribe((onActionEmitted: "add" | "delete") => {
+                    if (onActionEmitted === "add") {
+                        this.onAddCard();
+                    } else {
+                        this.deleteSelectedCard();
+                    }
             });
+
         }
         this.flashcardDecksSub = this.flashcardService._flashcardsChanged
         .subscribe((flashcardDecksData: FlashcardDeck[]) => {
@@ -94,11 +104,19 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
   onSelectCard(index: number) {
     if (this.isEditMode) {
         // const selectedCardControl = (<FormArray>this.cardForm.get('cards'));
+        // used to fix bug when a card is pressed for the first time the card was
+        // not seleceted but after the first time it would work
         if (this.indexSelected != null) {
             this.indexSelected = null;
+            this.isCardSelected = false;
         } else {
+            this.isCardSelected = true;
             this.indexSelected = index;
         }
+
+        this.editFlashcardService.onIsCardSelected(this.isCardSelected);
+        this.isCardSelected = null;
+
         // this.flashcardDeck._cards[index].instruction = selectedCardControl.at(index).get('instruction').value;
         // this.flashcardDeck._cards[index].question = selectedCardControl.at(index).get('question').value;
         // this.flashcardDeck._cards[index].answer = selectedCardControl.at(index).get('answer').value;
@@ -123,6 +141,17 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             answer: new FormControl(null, { updateOn: "change"})
           })
       );
+  }
+
+  deleteSelectedCard() {
+    if (this.indexSelected != null) {
+        (<FormArray>this.cardForm.get('_cards')).removeAt(this.indexSelected);
+        this.indexSelected = null;
+        this.isCardSelected = false;
+        this.editFlashcardService.onIsCardSelected(this.isCardSelected);
+        this.isCardSelected = null;
+    }
+
   }
 
   private initCardForm() {
@@ -159,7 +188,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     this.flashcardDecksSub.unsubscribe();
     if(this.isEditMode) {
         this.saveFlashcardDeckSub.unsubscribe();
-        this.editFlashcardSerSub.unsubscribe();
+        this.editFlashcardActionStatusSerSub.unsubscribe();
     }
 
   }

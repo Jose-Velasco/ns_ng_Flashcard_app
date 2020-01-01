@@ -3,7 +3,7 @@ FlexboxLayout {
 }
 
 .btn-select {
-    font-size: 25;
+    font-size: 30;
     font-weight: bold;
     background-color: #2F99BB;
     color: #000000;
@@ -11,11 +11,38 @@ FlexboxLayout {
     border-color: #f2994A;
     border-radius: 5;
 }
+.btn-add {
+    font-size: 30;
+    font-weight: bold;
+    background-color: #2F99BB;
+    color: #5db240;
+    border-width: 1;
+    border-color: #f2994A;
+    border-radius: 5;
+}
 
-.btn-marign-left {
+.btn-add:pressed {
+    transform: scale(0.97, 0.97);
+}
+
+.btn-delete {
+    font-size: 33;
+    font-weight: bold;
+    background-color: #2F99BB;
+    color: #c33b34;
+    border-width: 1;
+    border-color: #f2994A;
+    border-radius: 5;
+}
+
+.btn-delete:pressed {
+    transform: scale(0.95, 0.95);
+}
+
+/* .btn-marign-left {
     margin-left: 50;
 }
 
 .btn-marign-right {
     margin-right: 50;
-}
+} */
