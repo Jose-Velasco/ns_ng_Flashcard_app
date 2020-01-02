@@ -19,8 +19,8 @@ declare var android: any;
 })
 export class FlashcardCardsComponent implements OnInit, OnDestroy {
     @Input() onsaveFlashcardDeckEvent: EventEmitter<boolean>;
-    @Input() onAddCardEvent: EventEmitter<boolean>; // delte later not being used??
     saveFlashcardDeckSub: Subscription;
+    // @Input() onAddCardEvent: EventEmitter<boolean> delte later not being used??
     @Input() flashcardDeckIndexSelected: number;
     // used to get textfield value form parent component
     // to be used to set current title of deck fomr control
@@ -29,10 +29,12 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     indexSelected: number;
     isCardSelected: boolean;
     @Input() isEditMode = false;
+    isCreateMode = false;
+    isCreateModeSub: Subscription;
     flashcardDeck: FlashcardDeck;
     flashcardDecksSub: Subscription;
     editFlashcardActionStatusSerSub: Subscription;
-    editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
+    // editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
     cardForm: FormGroup;
 
 
@@ -59,6 +61,10 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
 
         // used to determin whether to add a card or to delete a card seleceted
         if (this.isEditMode) {
+            this.isCreateModeSub = this.editFlashcardService.getCreateNewFlashcardDeckObserv
+                .subscribe((createMode: boolean) => {
+                    this.isCreateMode = createMode;
+                });
             this.editFlashcardActionStatusSerSub = this.editFlashcardService.actionStatusToDeckObserv
                 .subscribe((onActionEmitted: "add" | "delete") => {
                     if (onActionEmitted === "add") {
@@ -69,12 +75,14 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             });
 
         }
-        this.flashcardDecksSub = this.flashcardService._flashcardsChanged
-        .subscribe((flashcardDecksData: FlashcardDeck[]) => {
-            this.flashcardDeck = flashcardDecksData[this.flashcardDeckIndexSelected];
-        });
-        this.flashcardDeck = this.flashcardService.getAFlashcardDeck(this.flashcardDeckIndexSelected);
 
+        if (!this.isCreateMode) {
+            this.flashcardDecksSub = this.flashcardService._flashcardsChanged
+            .subscribe((flashcardDecksData: FlashcardDeck[]) => {
+                this.flashcardDeck = flashcardDecksData[this.flashcardDeckIndexSelected];
+            });
+            this.flashcardDeck = this.flashcardService.getAFlashcardDeck(this.flashcardDeckIndexSelected);
+        }
         this.initCardForm();
     }
 
@@ -117,6 +125,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
   }
 
   onAddCard() {
+      // might have to change values from null to empty string
       (<FormArray>this.cardForm.get('_cards')).push(
           new FormGroup({
             instruction: new FormControl(null, {updateOn: "change"}),
@@ -141,16 +150,26 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       // if the flashcard deck has a title then use it
       // if it does not then just keep on using an empty string
       // (this might hav to be test  id null value breaks something)???
-      if (this.flashcardDeck.title != "") {
-        this.currentFlashcardDeckTitle = this.flashcardDeck.title;
-      }
+
       let flashcardCards = new FormArray([]);
       // add if to make sure there is cards and not empty maybe?
-      for (let card of this.flashcardDeck._cards) {
+
+      if (!this.isCreateMode) {
+        if (this.flashcardDeck.title != "") {
+            this.currentFlashcardDeckTitle = this.flashcardDeck.title;
+          }
+          for (let card of this.flashcardDeck._cards) {
+              flashcardCards.push(new FormGroup({
+                instruction: new FormControl(card.instruction, {updateOn: "change"}),
+                question: new FormControl(card.question, {updateOn: "change"}),
+                answer: new FormControl(card.answer, { updateOn: "change"})
+              }));
+          }
+      } else {
           flashcardCards.push(new FormGroup({
-            instruction: new FormControl(card.instruction, {updateOn: "change"}),
-            question: new FormControl(card.question, {updateOn: "change"}),
-            answer: new FormControl(card.answer, { updateOn: "change"})
+            instruction: new FormControl("Tap to FLIP card", {updateOn: "change"}),
+            question: new FormControl("PRESS and HOLD here to edit", {updateOn: "change"}),
+            answer: new FormControl("Tap to FLIP card", { updateOn: "change"})
           }));
       }
 
@@ -164,18 +183,26 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       // need to find a way to save the data maybe moove ^^^^^ up there down here somehow
       // bind the data from parent textfield componet and pass it as the title: nw form controler
       this.cardForm.value.title = this.currentFlashcardDeckTitle;
-      if (this.isEditMode) {
+      if (this.isEditMode && !this.isCreateMode) {
         this.flashcardService.updateFlashcardDecks(this.flashcardDeckIndexSelected, this.cardForm.value);
-        console.log(this.cardForm.value);
+        console.log("deck Editted");
         this.router.backToPreviousPage();
+      } else {
+        this.flashcardService.addFlashcardDeck(this.cardForm.value);
+        console.log("new deck created!!!");
       }
   }
 
   ngOnDestroy() {
-    this.flashcardDecksSub.unsubscribe();
+    if (!this.isCreateMode) {
+        this.flashcardDecksSub.unsubscribe();
+    }
+
     if(this.isEditMode) {
         this.saveFlashcardDeckSub.unsubscribe();
         this.editFlashcardActionStatusSerSub.unsubscribe();
+        this.isCreateModeSub.unsubscribe();
+        this.editFlashcardService.enableCreateNewFlashcardDeck(false);
     }
   }
 

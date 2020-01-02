@@ -23,7 +23,9 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
     this.pagerouterSub = this.pageRoute.activatedRoute.subscribe(activatedRoute => {
           activatedRoute.paramMap.subscribe(paramMap => {
               this.dynamicParamSelectedDeckIndex = parseInt(paramMap.get('id'));
-              this.TitleOfDeck = this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex).title;
+              if (this.dynamicParamSelectedDeckIndex != -1) {
+                  this.TitleOfDeck = this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex).title;
+              }
           })
       })
   }

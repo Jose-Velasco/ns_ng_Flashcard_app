@@ -19,6 +19,11 @@ export class FlashcardService {
         return this.flashcardDecksArray[index];
     }
 
+    addFlashcardDeck(flashcardDeck: FlashcardDeck) {
+        this.flashcardDecksArray.push(flashcardDeck);
+        this._flashcardsChanged.next(this.flashcardDecksArray.slice());
+    }
+
     updateFlashcardDecks(index: number, newFlashcardDeck: FlashcardDeck) {
         this.flashcardDecksArray[index] = newFlashcardDeck;
         this._flashcardsChanged.next(this.flashcardDecksArray.slice());
