@@ -15,7 +15,7 @@ export class FlashcardEditDeckButtonsComponent implements OnInit, OnDestroy {
     isCardSelected: boolean = false;
 
     constructor(private flashcardService: FlashcardService,
-        private editFlashcardService: EditFlashcardService) { }
+        private editFlashcardService: EditFlashcardService,) { }
 
     ngOnInit() {
         this.editFlashcardSerSub = this.editFlashcardService.aCardWasSelectedObserv.subscribe((isACardSeleceted: boolean) => {

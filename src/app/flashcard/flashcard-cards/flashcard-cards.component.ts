@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { FlashcardDeck } from '../flashcardDeck.model';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { EditFlashcardService } from '../edit-flashcard.service';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 declare var android: any;
 
@@ -45,7 +46,8 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
 
   constructor(
       private flashcardService: FlashcardService,
-      private editFlashcardService: EditFlashcardService) { }
+      private editFlashcardService: EditFlashcardService,
+      private router: RouterExtensions) { }
 
     ngOnInit() {
         // used to when save buttton is clicked saves the current deck
@@ -143,7 +145,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         this.currentFlashcardDeckTitle = this.flashcardDeck.title;
       }
       let flashcardCards = new FormArray([]);
-      //add if to make sure there is cards and not empty
+      // add if to make sure there is cards and not empty maybe?
       for (let card of this.flashcardDeck._cards) {
           flashcardCards.push(new FormGroup({
             instruction: new FormControl(card.instruction, {updateOn: "change"}),
@@ -165,6 +167,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       if (this.isEditMode) {
         this.flashcardService.updateFlashcardDecks(this.flashcardDeckIndexSelected, this.cardForm.value);
         console.log(this.cardForm.value);
+        this.router.backToPreviousPage();
       }
   }
 
