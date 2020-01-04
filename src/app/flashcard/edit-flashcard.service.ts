@@ -6,6 +6,7 @@ export class EditFlashcardService {
     private actionStatusToDeck = new Subject<string>();
     private aCardWasSelected = new Subject<boolean>();
     private createNewFlashcardDeck = new BehaviorSubject<boolean>(false);
+    private shuffleDeckChanged = new Subject();
 
     get actionStatusToDeckObserv() {
         return this.actionStatusToDeck.asObservable();
@@ -19,6 +20,10 @@ export class EditFlashcardService {
         return this.createNewFlashcardDeck.asObservable();
     }
 
+    get getshuffleDeckChanged() {
+        return this.shuffleDeckChanged.asObservable();
+    }
+
     updateDeckAction(addAction: string) {
         this.actionStatusToDeck.next(addAction);
     }
@@ -30,4 +35,9 @@ export class EditFlashcardService {
     enableCreateNewFlashcardDeck(isCreateMode: boolean) {
         this.createNewFlashcardDeck.next(isCreateMode);
     }
+
+    ShufflingDeck() {
+        this.shuffleDeckChanged.next();
+    }
+
 }

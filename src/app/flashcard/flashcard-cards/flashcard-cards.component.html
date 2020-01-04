@@ -12,7 +12,7 @@
         <Label
             *ngIf="!cardFront && i != indexSelected"
             class="description"
-            text="{{ cardForm.value._cards[i].instruction }}"
+            text="{{ isEditMode ? cardForm.value._cards[i].instruction : flashcardDeck._cards[i].instruction }}"
             >
         </Label>
         <Label
@@ -20,7 +20,7 @@
             id="question-label"
             (loaded)="onLabelLoad($event)"
             class="question"
-            text="{{ cardForm.value._cards[i].question }}"
+            text="{{ isEditMode ? cardForm.value._cards[i].question : flashcardDeck._cards[i].question }}"
             >
         </Label>
         <Label
@@ -28,7 +28,7 @@
             id="question-label"
             (loaded)="onLabelLoad($event)"
             class="question"
-            text="{{ cardForm.value._cards[i].answer }}"
+            text="{{ isEditMode ? cardForm.value._cards[i].answer : flashcardDeck._cards[i].answer }}"
             >
         </Label>
 

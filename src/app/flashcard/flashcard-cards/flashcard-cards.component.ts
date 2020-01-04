@@ -34,6 +34,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     flashcardDeck: FlashcardDeck;
     flashcardDecksSub: Subscription;
     editFlashcardActionStatusSerSub: Subscription;
+    shuffleDeckSub: Subscription;
     // editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
     cardForm: FormGroup;
 
@@ -83,6 +84,12 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             });
             this.flashcardDeck = this.flashcardService.getAFlashcardDeck(this.flashcardDeckIndexSelected);
         }
+
+        if (!this.isEditMode) {
+            this.shuffleDeckSub = this.editFlashcardService.getshuffleDeckChanged.subscribe(startShuffleing => {
+                this.shuffleCards();
+            });
+        }
         this.initCardForm();
     }
 
@@ -97,7 +104,19 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
 
   get android() {
     return isAndroid;
-}
+  }
+
+  shuffleCards() {
+    let currentIndex = this.flashcardDeck._cards.length, temporaryValue, randomIndex;
+    while(0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -=1;
+
+        temporaryValue = this.flashcardDeck._cards[currentIndex];
+        this.flashcardDeck._cards[currentIndex] = this.flashcardDeck._cards[randomIndex];
+        this.flashcardDeck._cards[randomIndex] = temporaryValue;
+    }
+  }
 
   onFlip() {
       // used to play the click sound when flexbox is clicked
@@ -189,7 +208,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
         this.router.backToPreviousPage();
       } else {
         this.flashcardService.addFlashcardDeck(this.cardForm.value);
-        console.log("new deck created!!!");
+        this.router.navigate(['/tabs'], {clearHistory: true});
       }
   }
 
@@ -197,12 +216,14 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     if (!this.isCreateMode) {
         this.flashcardDecksSub.unsubscribe();
     }
-
     if(this.isEditMode) {
         this.saveFlashcardDeckSub.unsubscribe();
         this.editFlashcardActionStatusSerSub.unsubscribe();
         this.isCreateModeSub.unsubscribe();
         this.editFlashcardService.enableCreateNewFlashcardDeck(false);
+    }
+    if(!this.isEditMode) {
+        this.shuffleDeckSub.unsubscribe();
     }
   }
 

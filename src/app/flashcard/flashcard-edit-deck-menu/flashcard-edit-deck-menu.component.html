@@ -5,10 +5,19 @@
         text="Save"
         (tap)="onSaveFlashcardDeck($event)">
     </ActionItem>
-    <ActionItem android.position="popup"
+    <ActionItem *ngIf="dynamicParamSelectedDeckIndex != -1"
+        android.position="popup"
         ios.systemIcon="16"
         ios.position="right"
-        text="Delete Deck">
+        text="Delete Deck"
+        (tap)="onDeleteFlashcardDeck()">
+    </ActionItem>
+    <ActionItem *ngIf="dynamicParamSelectedDeckIndex == -1"
+        android.position="popup"
+        ios.systemIcon="16"
+        ios.position="right"
+        text="Cancel"
+        (tap)="onCancelCreateDeck()">
     </ActionItem>
 </ns-action-bar>
 <FlexboxLayout class="edit-deck-menu-container">

@@ -36,7 +36,7 @@ export class FlashcardEditDeckButtonsComponent implements OnInit, OnDestroy {
     }
 
     onShuffleDeck() {
-        console.log(this.flashcardService.getAFlashcardDeck(this.IndexDeckSelected));
+        this.editFlashcardService.ShufflingDeck();
     }
 
     ngOnDestroy() {

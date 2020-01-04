@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
-import { PageRoute } from 'nativescript-angular/router';
+import { PageRoute, RouterExtensions } from 'nativescript-angular/router';
 import { EventData } from 'tns-core-modules/ui/page/page';
 import { FlashcardService } from '../flashcard.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,8 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
 
   constructor(
       private pageRoute: PageRoute,
-      private flashcardService: FlashcardService) { }
+      private flashcardService: FlashcardService,
+      private router: RouterExtensions) { }
 
   ngOnInit() {
     this.pagerouterSub = this.pageRoute.activatedRoute.subscribe(activatedRoute => {
@@ -32,6 +33,15 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
 
   onSaveFlashcardDeck(eventData: EventData) {
       this.onsaveFlashcardDeckEvent.emit(true);
+  }
+
+  onDeleteFlashcardDeck() {
+      this.flashcardService.deleteFlashcardDeck(this.dynamicParamSelectedDeckIndex);
+      this.router.backToPreviousPage();
+  }
+
+  onCancelCreateDeck() {
+    this.router.navigate(['/tabs'], {clearHistory: true});
   }
 
   ngOnDestroy() {
