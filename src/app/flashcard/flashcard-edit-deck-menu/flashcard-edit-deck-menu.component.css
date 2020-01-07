@@ -7,3 +7,8 @@ FlexboxLayout {
 .edit-deck-menu-container {
     background-color: var(--edit-deck-menu-bg-color);
 }
+
+.secondary-text-font {
+    text-align: center;
+    font-size: 45;
+}

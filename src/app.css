@@ -14,6 +14,7 @@ refer to http://docs.nativescript.org/ui/theme.
 .ns-root {
     --main-bg-color: #12181B;
     --edit-deck-menu-bg-color: #404893;
+    --primary-text-color: #ffffff;
     --secondary-text-color: #B2BECD;
     --main-button-color: #09C372;
     --main-highlight-color: #F96A1F;
@@ -65,6 +66,18 @@ ActionBar {
     font-weight: bold;
     color: #ffffff;
     font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
+}
+
+.secondary-text-font {
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    font-size: 35;
+    margin-bottom: 15;
+}
+
+.emphasize-text {
+    color: var(--primary-text-color);
+    font-size: 51;
 }
 
 .fa {

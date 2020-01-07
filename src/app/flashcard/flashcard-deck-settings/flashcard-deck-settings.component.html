@@ -13,6 +13,14 @@
     </ActionItem>
 </ns-action-bar>
 <FlexboxLayout class="flashcard-deck-settings-container">
+    <Label *ngIf="!hasCreatedDeck" class="secondary-text-font" textWrap="true">
+        <FormattedString>
+            <Span text="Click" class="emphasize-text"></Span>
+            <Span text=" the "></Span>
+            <Span text="Plus" class="emphasize-text"></Span>
+            <Span text=" to create a Deck"></Span>
+        </FormattedString>
+    </Label>
     <ScrollView>
         <FlexboxLayout class="flashcard-deck-settings-wraper">
             <ns-flashcard-select-deck isListView="true"></ns-flashcard-select-deck>

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { PageRoute, RouterExtensions } from 'nativescript-angular/router';
 import { EventData } from 'tns-core-modules/ui/page/page';
 import { FlashcardService } from '../flashcard.service';
@@ -9,16 +9,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './flashcard-edit-deck-menu.component.html',
   styleUrls: ['./flashcard-edit-deck-menu.component.css']
 })
-export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
+export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy, AfterViewChecked {
     TitleOfDeck: string = '';
     dynamicParamSelectedDeckIndex: number;
     onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
     pagerouterSub: Subscription;
+    hasCardInDeck: boolean;
 
   constructor(
       private pageRoute: PageRoute,
       private flashcardService: FlashcardService,
-      private router: RouterExtensions) { }
+      private router: RouterExtensions,
+      private changeDectRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.pagerouterSub = this.pageRoute.activatedRoute.subscribe(activatedRoute => {
@@ -35,6 +37,10 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
       this.onsaveFlashcardDeckEvent.emit(true);
   }
 
+  changeIfCardsInDeck(isCardsInDeck: boolean) {
+      this.hasCardInDeck = isCardsInDeck;
+  }
+
   onDeleteFlashcardDeck() {
       this.flashcardService.deleteFlashcardDeck(this.dynamicParamSelectedDeckIndex);
       this.router.backToPreviousPage();
@@ -42,6 +48,12 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy {
 
   onCancelCreateDeck() {
     this.router.navigate(['/tabs'], {clearHistory: true});
+  }
+
+  ngAfterViewChecked() {
+      if (this.hasCardInDeck) {
+          this.changeDectRef.detectChanges();
+      }
   }
 
   ngOnDestroy() {

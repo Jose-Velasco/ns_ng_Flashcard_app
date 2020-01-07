@@ -12,11 +12,22 @@ export class FlashcardService {
         this._flashcardsChanged.next(this.flashcardDecksArray.slice());
     }
 
+    get flashcardsChanged() {
+        return this._flashcardsChanged.asObservable();
+    }
+
     getFlashcardDecks() {
         return this.flashcardDecksArray.slice();
     }
     getAFlashcardDeck(index: number) {
         return this.flashcardDecksArray[index];
+    }
+
+    get currentFlashcardDeckLength() {
+        return this.flashcardDecksArray.length;
+    }
+    gethasCardsInDeck(index: number) {
+        return this.flashcardDecksArray.slice()[index]._cards.length > 0;
     }
 
     addFlashcardDeck(flashcardDeck: FlashcardDeck) {

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PageRoute } from 'nativescript-angular/router';
 import { Subscription } from 'rxjs';
+import { FlashcardService } from '../flashcard.service';
 
 @Component({
   selector: 'ns-flashcard-deck-viewer',
@@ -9,11 +10,14 @@ import { Subscription } from 'rxjs';
 })
 export class FlashcardDeckViewerComponent implements OnInit, OnDestroy {
     dynamicParamSelectedDeckIndex: number;
-    pageRouteSub: Subscription
+    pageRouteSub: Subscription;
+    hasCardInDeck: boolean;
+    deckTitle: string = "";
 
 
     constructor(
-        private pageRoute: PageRoute) { }
+        private pageRoute: PageRoute,
+        private flashcardService: FlashcardService) { }
 
     ngOnInit() {
 
@@ -24,6 +28,17 @@ export class FlashcardDeckViewerComponent implements OnInit, OnDestroy {
                 this.dynamicParamSelectedDeckIndex = parseInt(paramMap.get('id'));
             })
         });
+        this.hasCardInDeck = this.flashcardService.gethasCardsInDeck(this.dynamicParamSelectedDeckIndex);
+        this.deckTitle = this.getCurrentDeckTitle();
+
+    }
+
+    // checkFlashcards() {
+    //     return this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex)._cards.length > 0;
+    // }
+
+    getCurrentDeckTitle() {
+        return this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex).title;
     }
 
     ngOnDestroy() {

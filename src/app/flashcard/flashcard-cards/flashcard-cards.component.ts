@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import * as applicationModule from "tns-core-modules/application";
 import { isAndroid } from "tns-core-modules/platform";
 import { Label } from "tns-core-modules/ui/label"
@@ -37,6 +37,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     shuffleDeckSub: Subscription;
     // editFlashcardUpdateCardIndexSelectedSerSub: Subscription;
     cardForm: FormGroup;
+    @Output() onNoCardsInDeck: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
 
     get cardsControl() {
@@ -73,6 +74,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
                     } else {
                         this.deleteSelectedCard();
                     }
+                    this.checkIfCardsInDeck();
             });
 
         }
@@ -91,6 +93,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             });
         }
         this.initCardForm();
+        this.checkIfCardsInDeck();
     }
 
   onLabelLoad(args: EventData) {
@@ -204,13 +207,23 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       this.cardForm.value.title = this.currentFlashcardDeckTitle;
       if (this.isEditMode && !this.isCreateMode) {
         this.flashcardService.updateFlashcardDecks(this.flashcardDeckIndexSelected, this.cardForm.value);
-        console.log("deck Editted");
         this.router.backToPreviousPage();
       } else {
         this.flashcardService.addFlashcardDeck(this.cardForm.value);
         this.router.navigate(['/tabs'], {clearHistory: true});
       }
   }
+
+  checkIfCardsInDeck() {
+      if (this.isEditMode) {
+          if(this.cardsControl.length === 0) {
+              this.onNoCardsInDeck.emit(false);
+            } else {
+                this.onNoCardsInDeck.emit(true);
+          }
+      }
+
+    }
 
   ngOnDestroy() {
     if (!this.isCreateMode) {
@@ -225,6 +238,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     if(!this.isEditMode) {
         this.shuffleDeckSub.unsubscribe();
     }
+    console.log("carde componet destryoed");
   }
 
 }

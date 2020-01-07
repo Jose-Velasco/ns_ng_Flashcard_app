@@ -22,8 +22,16 @@
 </ns-action-bar>
 <FlexboxLayout class="edit-deck-menu-container">
     <TextField class="input-basic m-b-10" [(ngModel)]="TitleOfDeck" hint="Name the deck"></TextField>
+    <Label *ngIf="!hasCardInDeck" class="secondary-text-font" textWrap="true">
+        <FormattedString>
+            <Span text="Click" class="emphasize-text"></Span>
+            <Span text=" the "></Span>
+            <Span text="Plus" class="emphasize-text"></Span>
+            <Span text=" to add cards to deck"></Span>
+        </FormattedString>
+    </Label>
     <ScrollView orientation="horizontal">
-        <ns-flashcard-cards [currentFlashcardDeckTitle]="TitleOfDeck" [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
+        <ns-flashcard-cards [currentFlashcardDeckTitle]="TitleOfDeck" (onNoCardsInDeck)="changeIfCardsInDeck($event)" [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
     </ScrollView>
     <ns-flashcard-edit-deck-buttons [IndexDeckSelected]="dynamicParamSelectedDeckIndex" [isEditModeButtons]="true"></ns-flashcard-edit-deck-buttons>
 </FlexboxLayout>
