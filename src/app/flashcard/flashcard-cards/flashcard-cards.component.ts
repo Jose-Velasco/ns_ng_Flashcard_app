@@ -28,6 +28,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     cardFront = null;
     indexSelected: number;
     isCardSelected: boolean;
+    tapedCardIndex: number;
     @Input() isEditMode = false;
     isCreateMode = false;
     isCreateModeSub: Subscription;
@@ -121,9 +122,20 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFlip() {
+  onFlip(index: number) {
       // used to play the click sound when flexbox is clicked
-      this.cardFront = !this.cardFront;
+      if (this.cardFront === null) {
+          this.cardFront = !this.cardFront;
+      } else {
+          if (this.tapedCardIndex === index) {
+              this.cardFront = !this.cardFront;
+          } else {
+              this.cardFront = true;
+          }
+      }
+      this.tapedCardIndex = index;
+      console.log(this.cardFront);
+      console.log(this.tapedCardIndex);
       if (isAndroid) {
           let decorView: any = applicationModule.android.startActivity.getWindow().getDecorView()
           decorView.playSoundEffect(android.view.SoundEffectConstants.CLICK);
@@ -238,7 +250,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     if(!this.isEditMode) {
         this.shuffleDeckSub.unsubscribe();
     }
-    console.log("carde componet destryoed");
   }
 
 }

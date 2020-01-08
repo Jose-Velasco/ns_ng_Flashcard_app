@@ -1,22 +1,25 @@
 <FlexboxLayout class="flashcard-cards-container" [formGroup]="cardForm">
+    <!-- [ngClass]="{'animate-card-front': cardFront && cardFront != null, 'animate-card-back': !cardFront && cardFront != null}" -->
     <FlexboxLayout
         *ngFor="let card of cardsControl; let i = index;"
         (ngSubmit)="saveFlashcardForm();"
-        (tap)="onFlip()"
+        (tap)="onFlip(i)"
         (longPress)="onSelectCard(i)"
         class="flashcard-overview-card"
-        [ngClass]="{'animate-card-front': cardFront && cardFront != null, 'animate-card-back': !cardFront && cardFront != null}"
+        [ngClass]="{
+            'animate-card-front': i === tapedCardIndex && cardFront && cardFront != null,
+            'animate-card-back': i === tapedCardIndex && !cardFront && cardFront != null}"
         [ngStyle]="{'border-color': i === this.indexSelected ? '#F96A1F' : '#000000', 'height': isEditMode ? '75%' : '85%'}"
         formArrayName="_cards"
         >
         <Label
-            *ngIf="!cardFront && i != indexSelected"
+            *ngIf="(i === tapedCardIndex && !cardFront || (i !== tapedCardIndex)) && i != indexSelected"
             class="description"
             text="{{ isEditMode ? cardForm.value._cards[i].instruction : flashcardDeck._cards[i].instruction }}"
             >
         </Label>
         <Label
-            *ngIf="!cardFront && i != indexSelected"
+            *ngIf="(i === tapedCardIndex && !cardFront || (i !== tapedCardIndex)) && i != indexSelected"
             id="question-label"
             (loaded)="onLabelLoad($event)"
             class="question"
@@ -24,7 +27,7 @@
             >
         </Label>
         <Label
-            *ngIf="cardFront && i != indexSelected"
+            *ngIf="(i === tapedCardIndex && cardFront) && (cardFront !== null && i != indexSelected)"
             id="question-label"
             (loaded)="onLabelLoad($event)"
             class="question"
@@ -57,5 +60,29 @@
                 >
             </TextView>
         </FlexboxLayout>
+
+        <!-- <FlexboxLayout [ngClass]="{'card-form': isEditMode && i === indexSelected}" *ngIf="isEditMode" [formGroupName]="i">
+            <TextField
+                *ngIf="(!cardFront && isEditMode && i === indexSelected) || i === tapedCardIndex"
+                hint="instructions"
+                class="input-instructions m-b-15"
+                formControlName="instruction"
+                >
+            </TextField>
+            <TextView
+                *ngIf="(!cardFront && isEditMode && i === indexSelected) && i === tapedCardIndex"
+                hint="Enter Question"
+                class="input-answer m-t-15"
+                formControlName="question"
+                >
+            </TextView>
+            <TextView
+                *ngIf="(cardFront && isEditMode && i === indexSelected) && cardFront !== null && i === tapedCardIndex"
+                hint="Enter Answer"
+                class="input-answer"
+                formControlName="answer"
+                >
+            </TextView>
+        </FlexboxLayout> -->
     </FlexboxLayout>
 </FlexboxLayout>
