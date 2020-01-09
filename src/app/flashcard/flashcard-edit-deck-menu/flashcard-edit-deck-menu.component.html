@@ -1,4 +1,4 @@
-<ns-action-bar [hasMenu]="false" title="Edit Deck Menu">
+<ns-action-bar [hasMenu]="false" title="{{ menuEditTitle }}">
     <ActionItem android.position="popup"
         ios.systemIcon="3"
         ios.position="right"
@@ -21,7 +21,7 @@
     </ActionItem>
 </ns-action-bar>
 <FlexboxLayout class="edit-deck-menu-container">
-    <TextField class="input-basic m-b-10" [(ngModel)]="TitleOfDeck" hint="Name the deck"></TextField>
+    <TextField class="input-basic m-b-10" [(ngModel)]="titleOfDeck" hint="Name the deck"></TextField>
     <Label *ngIf="!hasCardInDeck" class="secondary-text-font" textWrap="true">
         <FormattedString>
             <Span text="Click" class="emphasize-text"></Span>
@@ -31,7 +31,14 @@
         </FormattedString>
     </Label>
     <ScrollView orientation="horizontal">
-        <ns-flashcard-cards [currentFlashcardDeckTitle]="TitleOfDeck" (onNoCardsInDeck)="changeIfCardsInDeck($event)" [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent" [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex" [isEditMode]="true"></ns-flashcard-cards>
+        <ns-flashcard-cards
+            [currentFlashcardDeckTitle]="titleOfDeck"
+            (onNoCardsInDeck)="changeIfCardsInDeck($event)"
+            (onIsCreateMode)="setEditMenuTitle($event)"
+            [onsaveFlashcardDeckEvent]="onsaveFlashcardDeckEvent"
+            [flashcardDeckIndexSelected]="dynamicParamSelectedDeckIndex"
+            [isEditMode]="true">
+        </ns-flashcard-cards>
     </ScrollView>
     <ns-flashcard-edit-deck-buttons [IndexDeckSelected]="dynamicParamSelectedDeckIndex" [isEditModeButtons]="true"></ns-flashcard-edit-deck-buttons>
 </FlexboxLayout>

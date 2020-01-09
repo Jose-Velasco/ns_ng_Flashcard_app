@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./flashcard-edit-deck-menu.component.css']
 })
 export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy, AfterViewChecked {
-    TitleOfDeck: string = '';
+    titleOfDeck: string = '';
+    menuEditTitle: string = "";
     dynamicParamSelectedDeckIndex: number;
     onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
     pagerouterSub: Subscription;
@@ -27,10 +28,14 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy, AfterV
           activatedRoute.paramMap.subscribe(paramMap => {
               this.dynamicParamSelectedDeckIndex = parseInt(paramMap.get('id'));
               if (this.dynamicParamSelectedDeckIndex != -1) {
-                  this.TitleOfDeck = this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex).title;
+                  this.titleOfDeck = this.flashcardService.getAFlashcardDeck(this.dynamicParamSelectedDeckIndex).title;
               }
           })
       })
+  }
+
+  setEditMenuTitle(menuTitle: string) {
+    this.menuEditTitle = menuTitle;
   }
 
   onSaveFlashcardDeck(eventData: EventData) {

@@ -31,6 +31,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
     tapedCardIndex: number;
     @Input() isEditMode = false;
     isCreateMode = false;
+    @Output() onIsCreateMode: EventEmitter<string> = new EventEmitter<string>();
     isCreateModeSub: Subscription;
     flashcardDeck: FlashcardDeck;
     flashcardDecksSub: Subscription;
@@ -77,6 +78,7 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
                     }
                     this.checkIfCardsInDeck();
             });
+            this.setEditMenuTitle();
 
         }
 
@@ -134,8 +136,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
           }
       }
       this.tapedCardIndex = index;
-      console.log(this.cardFront);
-      console.log(this.tapedCardIndex);
       if (isAndroid) {
           let decorView: any = applicationModule.android.startActivity.getWindow().getDecorView()
           decorView.playSoundEffect(android.view.SoundEffectConstants.CLICK);
@@ -223,6 +223,14 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       } else {
         this.flashcardService.addFlashcardDeck(this.cardForm.value);
         this.router.navigate(['/tabs'], {clearHistory: true});
+      }
+  }
+
+  setEditMenuTitle() {
+      if (this.isEditMode && this.isCreateMode) {
+          this.onIsCreateMode.emit("Create Deck Menu");
+      } else {
+          this.onIsCreateMode.emit("Edit Deck Menu");
       }
   }
 
