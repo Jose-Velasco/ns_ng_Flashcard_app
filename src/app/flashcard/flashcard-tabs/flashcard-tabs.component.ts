@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Page, Color } from 'tns-core-modules/ui/page/page';
 
 @Component({
   selector: 'ns-flashcard-tabs',
@@ -20,6 +20,7 @@ export class FlashcardTabsComponent implements OnInit {
           relativeTo: this.active
       });
       this.page.actionBarHidden = true;
+    //   this.page.androidStatusBarBackground = new Color("red");
   }
 
 }

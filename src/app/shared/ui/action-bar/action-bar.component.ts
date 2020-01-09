@@ -14,7 +14,7 @@ declare var android: any;
 })
 export class ActionBarComponent implements OnInit {
     @Input() title = "Flash Cards";
-    @Input() isAuthScreen = false;
+    @Input() isMainStatusBarColor = true;
     @Input() hasMenu = true;
     @Input() showBackButton = true;
 
@@ -24,6 +24,7 @@ export class ActionBarComponent implements OnInit {
       private page: Page) { }
 
   ngOnInit() {
+      this.uiService.setStatusBarBackground(this.isMainStatusBarColor);
   }
 
   get android() {
