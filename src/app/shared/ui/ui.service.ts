@@ -1,12 +1,11 @@
 import { Injectable, ViewContainerRef } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { Page, Color } from "tns-core-modules/ui/page/page";
 
 @Injectable({ providedIn: 'root'})
 export class UIService {
     private _drawerState = new BehaviorSubject<void>(null);
     private _rootVCRef: ViewContainerRef;
-    constructor(private page: Page) {}
+    constructor() {}
 
     get drawerState() {
         return this._drawerState.asObservable();
@@ -17,10 +16,14 @@ export class UIService {
         this._drawerState.next(null);
     }
 
-    setStatusBarBackground(isStatusBarMainColor: boolean) {
-        const color = isStatusBarMainColor ? new Color("#C54040") : new Color("#F96A1F");
-        this.page.androidStatusBarBackground = color;
-    }
+    // setStatusBarBackground(isStatusBarMainColor: boolean) {
+    //     console.log(isStatusBarMainColor);
+    //     const color = isStatusBarMainColor ? "#C54040" : "#F96A1F";
+    //     console.log(color);
+    //     const statusBar = new Color(color)
+    //     console.log(statusBar);
+    //     this.page.androidStatusBarBackground = statusBar;
+    // }
 
     // setRootVCRef(vcRef: ViewContainerRef) {
     //     this._rootVCRef = vcRef;

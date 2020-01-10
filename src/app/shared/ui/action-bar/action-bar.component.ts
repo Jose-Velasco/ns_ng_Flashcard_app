@@ -3,7 +3,7 @@ import { UIService } from '../ui.service';
 
 import { isAndroid } from "tns-core-modules/platform";
 import { RouterExtensions } from 'nativescript-angular/router';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Page, Color } from 'tns-core-modules/ui/page/page';
 
 declare var android: any;
 
@@ -24,7 +24,6 @@ export class ActionBarComponent implements OnInit {
       private page: Page) { }
 
   ngOnInit() {
-      this.uiService.setStatusBarBackground(this.isMainStatusBarColor);
   }
 
   get android() {
@@ -43,6 +42,9 @@ export class ActionBarComponent implements OnInit {
     // used to color the back button black
     onLoadedActionBar() {
         if (isAndroid) {
+            const colorBar = this.isMainStatusBarColor ? "#C54040" : "#F96A1F";
+            const statusBar = new Color(colorBar);
+            this.page.androidStatusBarBackground = statusBar;
             const androidToolbar = this.page.actionBar.nativeView;
             const backButton = androidToolbar.getNavigationIcon();
             let color = '#000000';

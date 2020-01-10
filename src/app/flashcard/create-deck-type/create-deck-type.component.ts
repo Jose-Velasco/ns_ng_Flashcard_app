@@ -24,7 +24,7 @@ export class CreateDeckTypeComponent implements OnInit, OnDestroy {
     this.isCreatingNewDeck = true;
     this.enableCreateModeParams = -1;
     this.editFlashcardService.enableCreateNewFlashcardDeck(this.isCreatingNewDeck);
-    this.router.navigate(["/edit-deck-menu", this.enableCreateModeParams], {clearHistory: true});
+    this.router.navigate(["edit-deck-menu", this.enableCreateModeParams], {clearHistory: true});
   }
 
   ngOnDestroy() {

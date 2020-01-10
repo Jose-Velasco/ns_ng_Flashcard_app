@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy, AfterViewChecked {
     titleOfDeck: string = '';
-    menuEditTitle: string = "";
+    menuEditTitle: string = "Edit Deck Menu";
     dynamicParamSelectedDeckIndex: number;
     onsaveFlashcardDeckEvent: EventEmitter<boolean> = new EventEmitter();
     pagerouterSub: Subscription;
@@ -36,6 +36,9 @@ export class FlashcardEditDeckMenuComponent implements OnInit, OnDestroy, AfterV
 
   setEditMenuTitle(menuTitle: string) {
     this.menuEditTitle = menuTitle;
+    // this was causeing the formgruop to to not be instantiated
+    // might need ot be changed for possable settting of title erros
+    // this.changeDectRef.detectChanges();
   }
 
   onSaveFlashcardDeck(eventData: EventData) {

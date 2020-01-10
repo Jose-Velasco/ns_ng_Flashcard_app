@@ -19,3 +19,8 @@ Button {
     height: 17%;
     width: 80%;
 }
+
+.input-not-vaild {
+    font-size: 17;
+    color: var(--primary-text-color);
+}

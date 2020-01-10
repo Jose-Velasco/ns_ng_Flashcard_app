@@ -21,7 +21,8 @@ const routes: Routes = [
     { path: "view-flashcards/:id", component: FlashcardDeckViewerComponent },
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
     { path: "edit-deck-menu/:id", component: FlashcardEditDeckMenuComponent },
-    { path: "", redirectTo: "/tabs", pathMatch: "full" },
+    // { path: "", redirectTo: "/tabs", pathMatch: "full" },
+    { path: "", redirectTo: "auth", pathMatch: "full" },
 
 
 ];

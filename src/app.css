@@ -13,6 +13,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 .ns-root {
     --main-bg-color: #12181B;
+    --main-actionbar-color: #C54040;
     --edit-deck-menu-bg-color: #404893;
     --primary-text-color: #ffffff;
     --secondary-text-color: #B2BECD;
@@ -107,6 +108,15 @@ ActionBar {
 
 .form .input-field {
     width: 80%;
+}
+
+.form .label.invalid {
+    color: var(--main-actionbar-color);
+}
+
+.input.ng-invalid.ng-touched {
+    border-bottom-color: var(--main-actionbar-color);
+    color: var(--main-actionbar-color);
 }
 
 .input-basic {

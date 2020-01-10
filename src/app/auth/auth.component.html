@@ -1,28 +1,57 @@
-<ns-action-bar [hasMenu]="false" [isMainStatusBarColor]="false" title="Login"></ns-action-bar>
-<FlexboxLayout class="form auth-form">
+<ns-action-bar [hasMenu]="false" [isMainStatusBarColor]="false" [title]="isLogin ? 'Login' : 'Signup'"></ns-action-bar>
+<FlexboxLayout class="form auth-form" [formGroup]="form">
     <StackLayout class="input-field">
-        <Label fontSize="23" class="label" text="E-mail"></Label>
+        <Label
+            fontSize="23"
+            class="label"
+            text="E-mail"
+            [ngClass]="{invalid: !emailControlIsValid}">
+        </Label>
         <TextField
             class="input"
             keyboardType="email"
-            autocorrect="false"></TextField>
+            autocorrect="false"
+            formControlName="email"
+            #passwordEl>
+        </TextField>
     </StackLayout>
     <StackLayout class="input-field">
-        <Label fontSize="23" class="label" text="Password"></Label>
+        <Label
+            fontSize="23"
+            class="label"
+            text="Password"
+            [ngClass]="{invalid: !passwordControlIsValid}">
+        </Label>
         <TextField
             class="input"
             hint="Min 6 characters"
             keyboardType="email"
             autocorrect="false"
             autocapitalizationType="none"
-            [secure]="true"></TextField>
+            [secure]="true"
+            formControlName="password"
+            #emailEl>
+        </TextField>
     </StackLayout>
+    <Label
+        *ngIf="!emailControlIsValid"
+        class="label input-not-vaild"
+        text="Please enter a valid email">
+    </Label>
+    <Label
+        *ngIf="!passwordControlIsValid"
+        class="label input-not-vaild"
+        text="Password must be 6+ characters">
+    </Label>
     <Button
         class="btn-flat"
-        text="Signup instead"
-        ></Button>
+        [text]="isLogin ? 'Signup instead' : 'Login instead'"
+        (tap)="onSwitch()">
+    </Button>
     <Button
-        text="Login/signup"
+        [text]="isLogin ? 'Login' : 'Signup'"
         class="btn btn-login"
-        (tap)="onLogin()"></Button>
+        (tap)="onSubmit()"
+        [isEnabled]="form.valid">
+    </Button>
 </FlexboxLayout>

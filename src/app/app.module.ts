@@ -18,12 +18,11 @@ import { FlashcardEditDeckButtonsComponent } from './flashcard/flashcard-edit-de
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlashcardDeckViewerComponent } from './flashcard/flashcard-deck-viewer/flashcard-deck-viewer.component';
+import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
-// Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
-// import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 @NgModule({
     bootstrap: [
@@ -34,7 +33,8 @@ import { FlashcardDeckViewerComponent } from './flashcard/flashcard-deck-viewer/
         AppRoutingModule,
         NativeScriptUISideDrawerModule,
         NativeScriptFormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NativeScriptHttpClientModule
     ],
     declarations: [
         AppComponent,

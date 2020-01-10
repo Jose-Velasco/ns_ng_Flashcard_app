@@ -56,13 +56,6 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
       private router: RouterExtensions) { }
 
     ngOnInit() {
-        // used to when save buttton is clicked saves the current deck
-        if (this.onsaveFlashcardDeckEvent) {
-            this.saveFlashcardDeckSub = this.onsaveFlashcardDeckEvent.subscribe(data => {
-                this.saveFlashcardForm();
-            });
-        }
-
         // used to determin whether to add a card or to delete a card seleceted
         if (this.isEditMode) {
             this.isCreateModeSub = this.editFlashcardService.getCreateNewFlashcardDeckObserv
@@ -90,13 +83,21 @@ export class FlashcardCardsComponent implements OnInit, OnDestroy {
             this.flashcardDeck = this.flashcardService.getAFlashcardDeck(this.flashcardDeckIndexSelected);
         }
 
+        this.initCardForm();
+
         if (!this.isEditMode) {
             this.shuffleDeckSub = this.editFlashcardService.getshuffleDeckChanged.subscribe(startShuffleing => {
                 this.shuffleCards();
             });
         }
-        this.initCardForm();
         this.checkIfCardsInDeck();
+
+        // used to when save buttton is clicked saves the current deck
+        if (this.onsaveFlashcardDeckEvent) {
+            this.saveFlashcardDeckSub = this.onsaveFlashcardDeckEvent.subscribe(data => {
+                this.saveFlashcardForm();
+            });
+        }
     }
 
   onLabelLoad(args: EventData) {
