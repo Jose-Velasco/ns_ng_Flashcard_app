@@ -8,6 +8,10 @@ export class AuthService {
         private http: HttpClient,
         private router: RouterExtensions) {}
 
+    signUp(email: string, password: string) {
+        console.log("Email:", email, "Password:", password)
+    }
+
     login(email: string, password: string) {
         console.log("Email:", email, "Password:", password)
     }

@@ -92,8 +92,12 @@ export class AuthComponent implements OnInit {
       this.emailControlIsValid = true;
       this.passwordControlIsValid = true;
       if (this.isLogin) {
+          // this will need to be subscribed
           this.authService.login(email, password);
           this.router.navigate(['tabs'], {clearHistory: true});
+      } else {
+          // this will need to be subscribed and login too
+          this.authService.signUp(email, password);
       }
   }
 
