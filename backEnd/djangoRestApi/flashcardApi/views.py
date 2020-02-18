@@ -6,10 +6,12 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
+from rest_framework_api_key.permissions import HasAPIKey
 from .serializers import UserSerializer, FlashcardDeckSerializer, CustomAuthTokenSerializer
 from .models import FlashcardDeck
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [HasAPIKey, ]
     user = get_user_model()
     queryset = user.objects.all()
     serializer_class = UserSerializer
@@ -22,7 +24,8 @@ class FlashcardDeckViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return FlashcardDeck.objects.filter(user=self.request.user)
 
-    def delete(self, request):
+    # not being used because pk is now being sent in the url
+    def delete(self, request, pk=None):
         flashcardDeck = FlashcardDeck.objects.filter(
             Q(user = self.request.user) & Q(pk = self.request.data["pk"]))
         if not flashcardDeck:

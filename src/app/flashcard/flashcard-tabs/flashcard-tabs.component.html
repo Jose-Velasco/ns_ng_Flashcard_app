@@ -1,4 +1,6 @@
-<TabView androidTabsPosition="bottom">
+<TabView
+    androidTabsPosition="bottom"
+    *ngIf="!isLoading">
     <StackLayout *tabItem="{title: 'Home', iconSource: 'res://menu_flashcards'}">
         <page-router-outlet name="selectDeckMenu"></page-router-outlet>
     </StackLayout>
@@ -6,3 +8,9 @@
         <page-router-outlet name="deckSettings"></page-router-outlet>
     </StackLayout>
 </TabView>
+<FlexboxLayout
+    justifyContent="center"
+    alignItems="center"
+    *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+</FlexboxLayout>

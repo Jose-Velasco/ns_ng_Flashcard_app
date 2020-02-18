@@ -64,7 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
 class FlashcardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flashcards
-        fields = ['instructions', 'question', 'answer']
+        fields = ['instruction', 'question', 'answer']
 
 class FlashcardDeckSerializer(serializers.ModelSerializer):
     flashcard = FlashcardsSerializer(many=True)
@@ -98,7 +98,7 @@ class FlashcardDeckSerializer(serializers.ModelSerializer):
         # Create or update each card instance
         for flashcard in validated_data["flashcard"]:
             card = Flashcards(
-                instructions = flashcard["instructions"],
+                instruction = flashcard["instruction"],
                 question = flashcard["question"],
                 answer = flashcard["answer"],
                 flashcarddeck = flashcardDeckInstance
@@ -127,7 +127,7 @@ class FlashcardDeckSerializer(serializers.ModelSerializer):
         for cardData in flashcardsData:
             try:
                 flashcard = flashcards.pop(0)
-                flashcard.instructions = cardData["instructions"]
+                flashcard.instructions = cardData["instruction"]
                 flashcard.question = cardData["question"]
                 flashcard.answer = cardData["answer"]
                 flashcard.save()
@@ -135,7 +135,7 @@ class FlashcardDeckSerializer(serializers.ModelSerializer):
             # request than in the original instance on th DB
             except (AttributeError, IndexError):
                 card = Flashcards(
-                    instructions = cardData["instructions"],
+                    instruction = cardData["instruction"],
                     question = cardData["question"],
                     answer = cardData["answer"],
                     flashcarddeck = instance

@@ -1,59 +1,28 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { FlashcardDeck } from '../flashcard/flashcardDeck.model';
-import { FlashcardService } from '../flashcard/flashcard.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from './auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ns-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
+    isLoading = false;
     isLogin = true;
     form: FormGroup;
     emailControlIsValid = true;
     passwordControlIsValid = true;
+    basicAutoLoginSub: Subscription;
     @ViewChild('passwordEl', {static: false}) passwordEl: ElementRef<TextField>;
     @ViewChild('emailEl', {static: false}) emailEl: ElementRef<TextField>;
 
   constructor(
       private router: RouterExtensions,
-      private flashcardService: FlashcardService,
       private authService: AuthService) { }
-
-  staticflashardData = [
-    new FlashcardDeck("first ever deck!!!", [
-        {instruction: "transolate in English", question: "あ",answer: "A"},
-        {instruction: "transolate in Japanese", question: "A",answer: "あ"},
-        {instruction: "transolate in English", question: "ア",answer: "A"},
-        {instruction: "transolate in English", question: "漢字",answer: "Kanji "},
-        {instruction: "transolate漢字 in漢字 English", question: "漢字漢字漢字漢字漢漢漢漢字字字字",answer: "KanjiKanjiKanjiKanjiKanjiKanjiKanjiKanji"},
-    ]),
-    new FlashcardDeck("Another onw!!!", [
-        {instruction: "3333333onw!", question: "this is answer",answer: "A*****"},
-        {instruction: "Another onw! in Another onw!", question: "A",answer: "あ"},
-        {instruction: "Another onw! in Another onw!", question: "ア",answer: "A"},
-        {instruction: "Another onw!", question: "xdxdxd",answer: "Kanji "},
-        {instruction: "tAnother onw!", question: "xdxd字",answer: "second card dexck"},
-    ]),
-    new FlashcardDeck("this is deiffent", [
-        {instruction: "do this !", question: "this is answer",answer: "A*****"},
-        {instruction: "Another onw! in Another onw!", question: "A",answer: "あ"},
-        {instruction: "Another onw! in Another onw!", question: "ア",answer: "A"},
-        {instruction: "Another onw!", question: "xdxdxd",answer: "Kanji "},
-        {instruction: "tAnother onw!", question: "xdxd字",answer: "second card dexck"},
-    ]),
-    new FlashcardDeck("A12333333", [
-        {instruction: "not this doe!", question: "this is answer",answer: "A*****"},
-        {instruction: "Another onw! in Another onw!", question: "A",answer: "あ"},
-        {instruction: "Another onw! in Another onw!", question: "ア",answer: "A"},
-        {instruction: "Another onw!", question: "xdxdxd",answer: "Kanji "},
-        {instruction: "tAnother onw!", question: "xdxd字",answer: "second card dexck"},
-    ]),
-    ];
 
 
   ngOnInit() {
@@ -69,6 +38,16 @@ export class AuthComponent implements OnInit {
                 Validators.minLength(6)]
           })
       });
+
+      this.basicAutoLoginSub = this.authService.user
+        .subscribe(currentUser => {
+            if (!currentUser || !currentUser.token) {
+                this.authService.autoLogin();
+            }
+            if ( currentUser && currentUser.isAuth ) {
+                this.router.navigate(['tabs'], {clearHistory: true});
+            }
+        });
 
     this.form.get('email').statusChanges.subscribe( status => {
         this.emailControlIsValid = status === 'VALID';
@@ -91,23 +70,33 @@ export class AuthComponent implements OnInit {
       this.form.reset();
       this.emailControlIsValid = true;
       this.passwordControlIsValid = true;
+      this.isLoading = true;
       if (this.isLogin) {
-          // this will need to be subscribed
-          this.authService.login(email, password);
-          this.router.navigate(['tabs'], {clearHistory: true});
-      } else {
-          // this will need to be subscribed and login too
-          this.authService.signUp(email, password);
-      }
-  }
+          this.authService.login(email, password).subscribe(resData => {
+            this.isLoading = false;
+              this.router.navigate(['tabs'], {clearHistory: true});
+          }, err => {
+              console.log(err);
+              this.isLoading = false;
+          });
 
-  onLogin() {
-      this.flashcardService.setFlascardDesks(this.staticflashardData);
-    this.router.navigate(['tabs'], {clearHistory: true});
+      } else {
+          this.authService.signUp(email, password).subscribe(resData => {
+            this.isLoading = false;
+            this.isLogin = true;
+          }, err => {
+              console.log(err);
+              this.isLoading = false;
+          });
+      }
   }
 
   onSwitch() {
     this.isLogin = !this.isLogin;
+  }
+
+  ngOnDestroy() {
+      this.basicAutoLoginSub.unsubscribe();
   }
 
 }

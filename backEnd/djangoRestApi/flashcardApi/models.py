@@ -62,7 +62,7 @@ class FlashcardDeck(models.Model):
 
 class Flashcards(models.Model):
     flashcarddeck = models.ForeignKey(FlashcardDeck, related_name='flashcard', on_delete=models.CASCADE)
-    instructions = models.TextField(blank=True, null=True)
+    instruction = models.TextField(blank=True, null=True)
     question = models.TextField(blank=True, null=True)
     answer = models.TextField(blank=True, null=True)
 

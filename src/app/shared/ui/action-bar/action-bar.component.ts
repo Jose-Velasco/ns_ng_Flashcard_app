@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { UIService } from '../ui.service';
 
 import { isAndroid } from "tns-core-modules/platform";
@@ -21,9 +21,11 @@ export class ActionBarComponent implements OnInit {
   constructor(
       private uiService: UIService,
       private router: RouterExtensions,
-      private page: Page) { }
+      private page: Page,
+      private changeDetectionRef: ChangeDetectorRef) { }
 
   ngOnInit() {
+
   }
 
   get android() {
@@ -36,15 +38,18 @@ export class ActionBarComponent implements OnInit {
     }
 
     onGoBack() {
+        this.isMainStatusBarColor = true;
+        this.setAndroidStatusBarColor();
         this.router.backToPreviousPage();
     }
 
     // used to color the back button black
     onLoadedActionBar() {
         if (isAndroid) {
-            const colorBar = this.isMainStatusBarColor ? "#C54040" : "#F96A1F";
-            const statusBar = new Color(colorBar);
-            this.page.androidStatusBarBackground = statusBar;
+            // const colorBar = this.isMainStatusBarColor ? "#C54040" : "#F96A1F";
+            // const statusBar = new Color(colorBar);
+            // this.page.androidStatusBarBackground = statusBar;
+            this.setAndroidStatusBarColor();
             const androidToolbar = this.page.actionBar.nativeView;
             const backButton = androidToolbar.getNavigationIcon();
             let color = '#000000';
@@ -57,6 +62,11 @@ export class ActionBarComponent implements OnInit {
         }
     }
 
+    setAndroidStatusBarColor() {
+        const colorBar = this.isMainStatusBarColor ? "#C54040" : "#F96A1F";
+        const statusBar = new Color(colorBar);
+        this.page.androidStatusBarBackground = statusBar;
+    }
 
   onToggleMenu() {
       this.uiService.toggleDrawer();

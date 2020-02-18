@@ -38,13 +38,14 @@
         class="label input-not-vaild"
         text="Please enter a valid email">
     </Label>
+    <ActivityIndicator *ngIf="isLoading" [busy]="isLoading"></ActivityIndicator>
     <Label
         *ngIf="!passwordControlIsValid"
         class="label input-not-vaild"
         text="Password must be 6+ characters">
     </Label>
     <Button
-        class="btn-flat"
+        class="btn-info"
         [text]="isLogin ? 'Signup instead' : 'Login instead'"
         (tap)="onSwitch()">
     </Button>

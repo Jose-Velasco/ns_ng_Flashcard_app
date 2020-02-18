@@ -25,7 +25,9 @@ SECRET_KEY = os.environ.get('flashcardApiSECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "97.84.77.225"
+]
 
 
 # Application definition
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djangoRestApi.flashcardApi',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
@@ -56,9 +59,11 @@ MIDDLEWARE = [
 ]
 
 # change on deployment
-CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:8000"
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = [
+#     "http://127.0.0.1:8000"
+# ]
 # might need to be change on deployment
 AUTH_USER_MODEL = "flashcardApi.FlashcardUser"
 

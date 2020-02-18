@@ -18,15 +18,25 @@ refer to http://docs.nativescript.org/ui/theme.
     --primary-text-color: #ffffff;
     --secondary-text-color: #B2BECD;
     --main-button-color: #09C372;
+    --secondary-button-color: #ff3860;
     --main-highlight-color: #F96A1F;
 }
 
 .drawer-container {
     background: #2A2E35;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     padding: 20;
+}
+
+.userEmail {
+    color: var(--primary-text-color);
+    font-weight: bold;
+    font-size: 22;
+    border: solid;
+    border-color: transparent transparent black;
+    border-width: 4;
 }
 
 .btn {
@@ -47,15 +57,31 @@ refer to http://docs.nativescript.org/ui/theme.
 }
 
 .btn-logout {
-    background-color: #ff3860;
+    background-color: var(--secondary-button-color);
     width: 80%;
     font-size: 24;
     height: 45;
     color: #ffffff;
 }
 
+.btn-info {
+    background-color: #00000000;
+    border: var(--secondary-button-color);
+    z-index: 0;
+    color: var(--main-button-color);
+    font-size: 29;
+    font-weight: bold;
+    width: 80%;
+    height: 80;
+}
+
 ActionBar {
     color: white;
+}
+
+ActivityIndicator {
+    color: #ff3860;
+    transform: scale(3);
 }
 
 .action-bar-title {
