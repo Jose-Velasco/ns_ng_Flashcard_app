@@ -7,12 +7,12 @@ import { alert } from 'tns-core-modules/ui/dialogs';
 import { User } from "./user.model";
 import { setString, getString, hasKey, remove } from 'tns-core-modules/application-settings';
 
-const djangoRestAPIKey = "6W1I6JR3.3ZNBdUXljdTzndcz8CMAGHjnFUkxHMnB"
+const djangoRestAPIKey = "wlLzgcGb.ewqdJtzzDOK8HtriS7qVkUhJoXyS5CJh"
 
 @Injectable({providedIn: "root"})
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
-    baseUrl = "http://97.84.77.225:8000";
+    baseUrl = "http://45.79.225.82:80";
     httpHeaders = new HttpHeaders ({"Content-Type": "application/json"});
 
     constructor(
