@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.nsngflashcardapp",
+    "id": "com.spypig.FlashDek",
     "tns-android": {
       "version": "6.1.2"
     },
