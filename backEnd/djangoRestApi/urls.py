@@ -16,13 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from djangoRestApi.flashcardApi.views import CustomObtainAuthToken
+from djangoRestApi.flashcardApi.views import CustomObtainAuthToken, CustomPasswordReset
+from dj_rest_auth import urls
+from dj_rest_auth.views import PasswordResetConfirmView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('flashcardApi/', include('djangoRestApi.flashcardApi.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     # call with POST request to get the current users token
     # "email" :
     # "password":
-    path('auth/', CustomObtainAuthToken.as_view())
+    path('auth/', CustomObtainAuthToken.as_view()),
+    # call with POST request to request a password reset link sent to user email
+    # "email":
+    path('password/reset/', CustomPasswordReset.as_view()),
+    # call with POST request with uid, token, new_password1 and 2, to set new password
+    # Note: uid and token are sent in email after calling /password/reset/
+    # "uid" :
+    # "token" :
+    # "new_password1" :
+    # "new_password2" :
+    path('password/reset/confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
+    path('password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
+        PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 ]

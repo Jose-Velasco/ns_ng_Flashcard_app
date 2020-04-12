@@ -25,8 +25,9 @@ SECRET_KEY = os.environ.get('flashcardApiSECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# adjust the allowed host when in production or on another computer match its ip adress
 ALLOWED_HOSTS = [
-    "97.84.77.225"
+    os.environ.get("local_adress")
 ]
 
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'djangoRestApi.flashcardApi',
     'rest_framework_api_key',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -61,11 +63,16 @@ MIDDLEWARE = [
 # change on deployment
 CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ORIGIN_WHITELIST = [
-#     "http://127.0.0.1:8000"
-# ]
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8000"
+]
 # might need to be change on deployment
 AUTH_USER_MODEL = "flashcardApi.FlashcardUser"
+
+# allows the use of a custom Serializer the from this dictionary is the location of serializer
+REST_AUTH_SERIALIZERS = {
+    "PASSWORD_RESET_SERIALIZER": "djangoRestApi.flashcardApi.serializers.CustomPasswordResetSerializer",
+}
 
 ROOT_URLCONF = 'djangoRestApi.urls'
 
@@ -136,3 +143,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# setting to send email via a gmail account adjust variables on production
+# or when developing on another computer
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMIAL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('flashcardApi_email')
+EMAIL_HOST_PASSWORD = os.environ.get('flashcardApi_pass')

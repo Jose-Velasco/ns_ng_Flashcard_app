@@ -6,6 +6,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 from .models import FlashcardDeck, Flashcards
+from dj_rest_auth.serializers import PasswordResetSerializer
 
 # used to use email and password without a username
 # defult authtoekn uses username needed custom one
@@ -144,4 +145,11 @@ class FlashcardDeckSerializer(serializers.ModelSerializer):
 
         return instance
 
-
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    # allows a custom email message to be sent using the files from the templates folder
+    def get_email_options(self):
+        return {
+        #  'email_template_name': 'path/to/your/txt_template.html',
+            'subject_template_name': 'password_reset_subject.txt',
+            'html_email_template_name': 'password_reset_email.html',
+        }

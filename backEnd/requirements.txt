@@ -6,3 +6,4 @@ pytz==2019.3
 sqlparse==0.3.0
 mysqlclient==1.4.6
 djangorestframework-api-key==1.4.1
+dj-rest-auth==1.0.1

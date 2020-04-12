@@ -7,8 +7,9 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 from rest_framework_api_key.permissions import HasAPIKey
-from .serializers import UserSerializer, FlashcardDeckSerializer, CustomAuthTokenSerializer
+from .serializers import UserSerializer, FlashcardDeckSerializer, CustomAuthTokenSerializer, CustomPasswordResetSerializer
 from .models import FlashcardDeck
+from dj_rest_auth.views import PasswordResetView
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [HasAPIKey, ]
@@ -54,3 +55,6 @@ class FlashcardDeckViewSet(viewsets.ModelViewSet):
 
 class CustomObtainAuthToken(ObtainAuthToken):
     serializer_class = CustomAuthTokenSerializer
+
+class CustomPasswordReset(PasswordResetView):
+    serializer_class = CustomPasswordResetSerializer
