@@ -7,13 +7,15 @@ import { alert } from 'tns-core-modules/ui/dialogs';
 import { User } from "./user.model";
 import { setString, getString, hasKey, remove } from 'tns-core-modules/application-settings';
 
-const djangoRestAPIKey = "wlLzgcGb.ewqdJtzzDOK8HtriS7qVkUhJoXyS5CJh"
+// this is the production api key
+// const djangoRestAPIKey = "wlLzgcGb.ewqdJtzzDOK8HtriS7qVkUhJoXyS5CJh"
+
+// this is the development key
+const djangoRestAPIKey = "6W1I6JR3.3ZNBdUXljdTzndcz8CMAGHjnFUkxHMnB"
 
 @Injectable({providedIn: "root"})
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
-    // TODO there is another hard coded base url that the app uses
-    // on another service needs to be fixed
     baseUrl = "http://45.79.225.82:80";
     httpHeaders = new HttpHeaders ({"Content-Type": "application/json"});
 

@@ -91,6 +91,12 @@ export class AuthComponent implements OnInit, OnDestroy {
       }
   }
 
+  onDone(): void {
+    this.emailEl.nativeElement.focus();
+    this.passwordEl.nativeElement.focus();
+    this.passwordEl.nativeElement.dismissSoftInput();
+  }
+
   onSwitch() {
     this.isLogin = !this.isLogin;
   }

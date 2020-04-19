@@ -30,7 +30,8 @@
             autocapitalizationType="none"
             [secure]="true"
             formControlName="password"
-            #emailEl>
+            #emailEl
+            (returnPress)="onDone()">
         </TextField>
     </StackLayout>
     <Label

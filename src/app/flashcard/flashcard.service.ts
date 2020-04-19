@@ -87,7 +87,7 @@ export class FlashcardService implements OnDestroy {
                     title: string;
                     flashcard: Card[];
                 }[]>(
-                    "http://45.79.225.82:80/flashcardApi/flashcardDecks/",
+                    `${this.authService.baseUrl}/flashcardApi/flashcardDecks/`,
                     {headers: {
                         "Authorization": `token ${currentUser.token}`
                     }}
