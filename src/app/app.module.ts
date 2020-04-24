@@ -19,6 +19,10 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlashcardDeckViewerComponent } from './flashcard/flashcard-deck-viewer/flashcard-deck-viewer.component';
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { DynamicModalComponent } from './shared/ui/dynamic-modal/dynamic-modal.component';
+import { ForgotPasswordModalViewComponent } from './shared/ui/forgot-password-modal-view/forgot-password-modal-view.component';
+import { ModalDialogService } from "nativescript-angular/modal-dialog";
+
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -49,10 +53,16 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
         FlashcardCardsComponent,
         FlashcardEditDeckButtonsComponent,
         FlashcardDeckViewerComponent,
+        DynamicModalComponent,
+        ForgotPasswordModalViewComponent,
     ],
-    providers: [Label],
+    providers: [Label, ModalDialogService],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    entryComponents: [
+        DynamicModalComponent,
+        ForgotPasswordModalViewComponent
     ]
 })
 /*

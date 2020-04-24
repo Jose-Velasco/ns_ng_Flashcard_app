@@ -1,9 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, ViewContainerRef } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
+import { DynamicModalComponent } from '../shared/ui/dynamic-modal/dynamic-modal.component';
+import { UIService } from '../shared/ui/ui.service';
+import { backgroundColorProperty } from 'tns-core-modules/ui/page/page';
 
 @Component({
   selector: 'ns-auth',
@@ -22,7 +26,10 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(
       private router: RouterExtensions,
-      private authService: AuthService) { }
+      private authService: AuthService,
+      private modalDialog: ModalDialogService,
+      private vcRef: ViewContainerRef,
+      private uiService: UIService) { }
 
 
   ngOnInit() {
@@ -99,6 +106,23 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   onSwitch() {
     this.isLogin = !this.isLogin;
+  }
+
+  onForgotPassword() {
+    const modalViewMode = "forgot";
+    this.uiService.setModalCurrentView(modalViewMode);
+    // this creates a modal based on which component is place as an argument
+    // uses the view container ref of the app.component if it fails then
+    // it uses the current vcREf
+    // data is passed useing context key
+    this.modalDialog.showModal(DynamicModalComponent, {
+        fullscreen: false,
+        viewContainerRef: this.uiService.getRootVCRef()
+            ? this.uiService.getRootVCRef()
+            : this.vcRef,
+        context: { modalType: "forgot"},
+        animated: true,
+    });
   }
 
   ngOnDestroy() {

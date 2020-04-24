@@ -16,7 +16,8 @@ const djangoRestAPIKey = "6W1I6JR3.3ZNBdUXljdTzndcz8CMAGHjnFUkxHMnB"
 @Injectable({providedIn: "root"})
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
-    baseUrl = "http://45.79.225.82:80";
+    // adjust base url in production
+    baseUrl = "";
     httpHeaders = new HttpHeaders ({"Content-Type": "application/json"});
 
     constructor(

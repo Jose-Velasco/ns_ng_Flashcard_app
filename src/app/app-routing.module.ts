@@ -22,6 +22,7 @@ const routes: Routes = [
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
     { path: "edit-deck-menu/:id", component: FlashcardEditDeckMenuComponent },
     // { path: "", redirectTo: "/tabs", pathMatch: "full" },
+    // { path: "forgot-password", component: ForgotPasswordModalViewComponent, outlet: "sharedModal"},
     { path: "", redirectTo: "auth", pathMatch: "full" },
 
 

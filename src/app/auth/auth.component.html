@@ -47,7 +47,7 @@
     </Label>
     <Button
         class="btn-info"
-        [text]="isLogin ? 'Signup instead' : 'Login instead'"
+        [text]="isLogin ? 'Signup instead?' : 'Login instead'"
         (tap)="onSwitch()">
     </Button>
     <Button
@@ -56,4 +56,5 @@
         (tap)="onSubmit()"
         [isEnabled]="form.valid">
     </Button>
+    <Button class="btn" text="Forgot password?" (tap)="onForgotPassword()"></Button>
 </FlexboxLayout>

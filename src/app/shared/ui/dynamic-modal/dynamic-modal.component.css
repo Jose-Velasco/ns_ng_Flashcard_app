@@ -1,0 +1,11 @@
+.modal-page{
+    background-color: rgb(255, 0, 0);
+    width: 300;
+    border-radius: 30;
+}
+
+FlexboxLayout {
+    flex-direction: column;
+    border-radius: 30;
+    background-color: red;
+}
