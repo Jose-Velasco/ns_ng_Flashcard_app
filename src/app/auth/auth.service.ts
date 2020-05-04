@@ -17,7 +17,7 @@ const djangoRestAPIKey = "zgXn8cvs.UZc5TuSS0H8XurtlEI3YgeqcADOv3gEh"
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
     // adjust base url in production
-    baseUrl = "Add server url here";
+    baseUrl = "url here";
     httpHeaders = new HttpHeaders ({"Content-Type": "application/json"});
 
     constructor(
