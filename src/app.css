@@ -20,6 +20,8 @@ refer to http://docs.nativescript.org/ui/theme.
     --main-button-color: #09C372;
     --secondary-button-color: #ff3860;
     --main-highlight-color: #F96A1F;
+    --primary-modal-color: #d55a43;
+
 }
 
 .drawer-container {
@@ -47,13 +49,20 @@ refer to http://docs.nativescript.org/ui/theme.
     color: #ffffff;
 }
 
+.btn-round {
+    border-radius: 10;
+    width: 80%;
+    font-size: 24;
+    background-color: var(--main-button-color);
+    color: #ffffff;
+}
+
 .btn-flat {
     background-color: var(--main-button-color);
     color: #ffffff;
     font-size: 29;
     font-weight: bold;
     width: 80%;
-    height: 80;
 }
 
 .btn-logout {
@@ -69,10 +78,10 @@ refer to http://docs.nativescript.org/ui/theme.
     border: var(--secondary-button-color);
     z-index: 0;
     color: var(--main-button-color);
-    font-size: 29;
+    font-size: 22;
     font-weight: bold;
     width: 80%;
-    height: 80;
+    /* height: 80; */
 }
 
 ActionBar {
@@ -109,6 +118,14 @@ ActivityIndicator {
 
 .fa {
     font-family: 'FontAwesome', 'Font-Awesome';
+}
+
+.fa-icon-med {
+    font-size: 45;
+}
+
+.fa-icon-sm {
+    font-size: 35;
 }
 
 .form {
@@ -155,3 +172,6 @@ ActivityIndicator {
     placeholder-color: var(--secondary-text-color);
 }
 
+.text-c {
+    text-align: center;
+}

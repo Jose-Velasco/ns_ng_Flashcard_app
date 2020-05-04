@@ -11,13 +11,13 @@ import { setString, getString, hasKey, remove } from 'tns-core-modules/applicati
 // const djangoRestAPIKey = "wlLzgcGb.ewqdJtzzDOK8HtriS7qVkUhJoXyS5CJh"
 
 // this is the development key
-const djangoRestAPIKey = "6W1I6JR3.3ZNBdUXljdTzndcz8CMAGHjnFUkxHMnB"
+const djangoRestAPIKey = "zgXn8cvs.UZc5TuSS0H8XurtlEI3YgeqcADOv3gEh"
 
 @Injectable({providedIn: "root"})
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
     // adjust base url in production
-    baseUrl = "";
+    baseUrl = "Add server url here";
     httpHeaders = new HttpHeaders ({"Content-Type": "application/json"});
 
     constructor(
@@ -75,6 +75,15 @@ export class AuthService {
         this._user.next(null);
         remove("userData");
         this.router.navigate(['/auth'], { clearHistory: true});
+    }
+
+    resetPassword(email: string) {
+        const body = {email: email};
+        return this.http.post(`${this.baseUrl}/password/reset/`, body, {headers: this.httpHeaders})
+            .pipe(catchError(errorRes => {
+                console.log(errorRes);
+                return throwError(errorRes);
+            }));
     }
 
     private handleLogin(email: string, token: string) {

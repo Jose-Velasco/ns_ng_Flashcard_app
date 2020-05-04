@@ -10,6 +10,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { FlashcardEditDeckMenuComponent } from "./flashcard/flashcard-edit-deck-menu/flashcard-edit-deck-menu.component";
 import { FlashcardCardsComponent } from "./flashcard/flashcard-cards/flashcard-cards.component";
 import { FlashcardDeckViewerComponent } from "./flashcard/flashcard-deck-viewer/flashcard-deck-viewer.component";
+import { ForgotPasswordModalViewComponent } from "./shared/ui/forgot-password-modal-view/forgot-password-modal-view.component";
 
 const routes: Routes = [
     { path: "tabs", component: FlashcardTabsComponent, children: [
@@ -22,7 +23,7 @@ const routes: Routes = [
     { path: "crate-deck-type", component: CreateDeckTypeComponent},
     { path: "edit-deck-menu/:id", component: FlashcardEditDeckMenuComponent },
     // { path: "", redirectTo: "/tabs", pathMatch: "full" },
-    // { path: "forgot-password", component: ForgotPasswordModalViewComponent, outlet: "sharedModal"},
+    { path: "forgot-password", component: ForgotPasswordModalViewComponent, outlet: "sharedModal"},
     { path: "", redirectTo: "auth", pathMatch: "full" },
 
 

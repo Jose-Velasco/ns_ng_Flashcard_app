@@ -28,9 +28,11 @@ urlpatterns = [
     # "email" :
     # "password":
     path('auth/', CustomObtainAuthToken.as_view()),
+
     # call with POST request to request a password reset link sent to user email
     # "email":
     path('password/reset/', CustomPasswordReset.as_view()),
+
     # call with POST request with uid, token, new_password1 and 2, to set new password
     # Note: uid and token are sent in email after calling /password/reset/
     # "uid" :

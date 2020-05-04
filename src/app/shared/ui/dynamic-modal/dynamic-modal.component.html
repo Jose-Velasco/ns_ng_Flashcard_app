@@ -1,7 +1,7 @@
-
-<FlexboxLayout (loaded)="layoutLoaded($event)">
-        <Label text="Walrus"></Label>
-        <Button text="test!"></Button>
-    <Label text="Walrus"></Label>
-    <Button text="test!"></Button>
-</FlexboxLayout>
+<StackLayout class="modal-dynamic-container">
+    <!-- bug:
+        had to use router outlet becasue parent contianer was
+        not resizeing to content. was unable to access the parent view to
+        make tranparent or resize-->
+    <router-outlet name="sharedModal"></router-outlet>
+</StackLayout>
